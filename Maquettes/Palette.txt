@@ -1,0 +1,24 @@
+/* CSS HEX */
+--tango: #f4772a;
+--ebb: #e5dedc;
+--biscay: #212966;
+--santas-gray: #999bb8;
+--lynch: #7c84a6;
+
+
+/* SCSS HEX */
+$tango: #f4772a;
+$ebb: #e5dedc;
+$biscay: #212966;
+$santas-gray: #999bb8;
+$lynch: #7c84a6;
+
+
+/* SCSS RGB */
+--tango: rgba(244,119,42,1);
+--ebb: rgba(229,222,220,1);
+--biscay: rgba(33,41,102,1);
+--santas-gray: rgba(153,155,184,1);
+--lynch: rgba(124,132,166,1);
+
+
