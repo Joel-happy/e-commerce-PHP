@@ -6,7 +6,13 @@
     <title>Register</title>
 </head>
 <body>
-    <form action="/e-commerce-PHP/authController" method="post">
+    <?php
+        if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
+            echo 'Invalid email address. Please try again.';
+        }
+    ?>
+
+    <form action="authController/register" method="post">
         <label for="username">Username:</label> <br>
         <input type="text" id="username" name="username" required> <br>
 
