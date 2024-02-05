@@ -12,13 +12,9 @@ $requestPath = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
 $requestPath = trim(str_replace($basePath, '', $requestPath), '/');
 
 // Instantiate all needed classes
-$database = new \src\core\Database();
 $router = new \src\core\Router();
 
 // Execute corresponding function for that specific path
 $router->handleRequest($requestPath);
-
-// Close database connection
-$database->close();
 
 ?>

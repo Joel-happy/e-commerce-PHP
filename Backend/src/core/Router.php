@@ -24,15 +24,21 @@ class Router {
         
         $this->addRoute('authController/register', function() {
             include('src/controllers/AuthController.php');
-            $userModel = new \src\models\UserModel();
+
+            $pdo = new \src\core\PDO();
+            $userModel = new \src\models\UserModel($pdo);
             $authController = new \src\controllers\AuthController($userModel);
+
             $authController->register();
         });
 
         $this->addRoute('authController/login', function() {
             include('src/controllers/AuthController.php');
-            $userModel = new \src\models\UserModel();
+            
+            $pdo = new \src\core\PDO();
+            $userModel = new \src\models\UserModel($pdo);
             $authController = new \src\controllers\AuthController($userModel);
+
             $authController->login();
         });
     }

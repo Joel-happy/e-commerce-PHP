@@ -2,7 +2,7 @@
 
 namespace src\core;
 
-class Database {
+class PDO {
     private $pdo; 
     
     public function __construct() {
@@ -31,13 +31,21 @@ class Database {
         }
     }
 
-    public function execute($query) {
+    public function execute($query, $params) {
         try {
-            // Execute a non-SELECT query (e.g., INSERT, UPDATE, DELETE)
-            $rowCount = $this->pdo->exec($query);
+            // Prepare query
+            $stmt = $this->pdo->prepare($query);
 
+            // Bind parameters
+            foreach ($params as $param => $value) {
+                $stmt->bindValue($param, $value);
+            }
+
+            // Execute the prepared statement (e.g., INSERT, UPDATE, DELETE)
+            $stmt->execute();
+ 
             // Return number of affected rows
-            return $rowCount;
+            return $stmt->rowCount();
         } catch (\PDOException $e) {
             echo 'Query failed : ' . $e->getMessage();
             return false;
