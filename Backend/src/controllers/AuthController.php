@@ -30,7 +30,7 @@ class AuthController {
             // Return to register form indicating the error message
             header('Location: ../register?error=invalid_email');
             exit();
-        } 
+        }
 
         $password = $_POST['password'];
 
