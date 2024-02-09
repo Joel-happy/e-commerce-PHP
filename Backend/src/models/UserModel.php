@@ -4,6 +4,7 @@ namespace src\models;
 
 class UserModel {
 
+    // Fields
     private $pdo;
 
     public function __construct($pdo) {
@@ -12,14 +13,12 @@ class UserModel {
 
     public function createUser($username, $email, $password) {
         $query = "INSERT INTO account(username, email, password, token) VALUES(:username, :email, :password, :token)";
-        
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $token = $this->generateToken();
 
+        $token = $this->generateToken();
         $params = [
             ':username' => $username,
             ':email' => $email,
-            ':password' => $hashedPassword,
+            ':password' => $password,
             ':token' => $token,
         ];
 

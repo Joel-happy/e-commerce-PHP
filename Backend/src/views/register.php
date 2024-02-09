@@ -6,9 +6,26 @@
     <title>Register</title>
 </head>
 <body>
+    <!-- Handle form input errors -->
     <?php
-        if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
-            echo 'Invalid email address. Please try again.';
+        if (isset($_GET['error'])) {
+            switch($_GET['error']) {
+                case "invalid_email":
+                    echo 'Invalid email address. Please try again (e.g. example@gmail.com)';                    
+                    break;
+                case "invalid_password":
+                    echo 'Invalid password. Your password must contain at least 8 characters, including a capital letter, a number, and a special character';
+                    break;
+                case "invalid_username":
+                    echo 'Invalid username. Your username must be at least 5 characters long';
+                    break;
+                case "not_matching_passwords":
+                    echo 'Passwords not matching';
+                    break;
+                default:
+                    echo 'unknown error';
+                    break;
+            }
         }
     ?>
 
@@ -28,6 +45,7 @@
         <input type="submit" value="Register">
     </form>
 
+    <!-- Comment this line to test server-side form validation -->
     <script src="src/js/registerRules.js"></script>
 </body>
 </html>
