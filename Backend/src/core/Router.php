@@ -2,27 +2,29 @@
 
 namespace src\core;
 
-class Router {
+class Router
+{
     private $routes = [];
 
-    public function __construct() {
-        $this->addRoute('', function() {
-            include('src/views/homePage.php');
-        });
-        
-        $this->addRoute('home', function() {
+    public function __construct()
+    {
+        $this->addRoute('', function () {
             include('src/views/homePage.php');
         });
 
-        $this->addRoute('register', function() {
+        $this->addRoute('home', function () {
+            include('src/views/homePage.php');
+        });
+
+        $this->addRoute('register', function () {
             include('src/views/register.php');
         });
 
-        $this->addRoute('login', function() {
+        $this->addRoute('login', function () {
             include('src/views/login.php');
         });
-        
-        $this->addRoute('authController/register', function() {
+
+        $this->addRoute('authController/register', function () {
             include('src/controllers/AuthController.php');
 
             $pdo = new \src\core\PDO();
@@ -32,9 +34,9 @@ class Router {
             $authController->register();
         });
 
-        $this->addRoute('authController/login', function() {
+        $this->addRoute('authController/login', function () {
             include('src/controllers/AuthController.php');
-            
+
             $pdo = new \src\core\PDO();
             $userModel = new \src\models\UserModel($pdo);
             $authController = new \src\controllers\AuthController($userModel);
@@ -42,12 +44,14 @@ class Router {
             $authController->login();
         });
     }
- 
-    public function addRoute($path, $handler) {
+
+    public function addRoute($path, $handler)
+    {
         $this->routes[$path] = $handler;
     }
 
-    public function handleRequest($path) {
+    public function handleRequest($path)
+    {
         // Extract query parameters from the path
         $parsedUrl = parse_url($path);
         $queryParameters = [];
@@ -70,5 +74,3 @@ class Router {
         }
     }
 }
-
-?>

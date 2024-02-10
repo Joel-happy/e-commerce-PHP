@@ -2,15 +2,17 @@
 
 namespace src\controllers;
 
-class AuthController {
+class AuthController
+{
 
     // Fields
     private $userModel;
-    
+
     // Constants
     const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
-    public function __construct($userModel) {
+    public function __construct($userModel)
+    {
         $this->userModel = $userModel;
     }
 
@@ -18,69 +20,96 @@ class AuthController {
     // Handle Registration
     //
 
-    public function register() {
+    public function register()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->handleRegistration();
+            $formData = $this->extractFormData();
+            if ($this->validateFormData($formData)) {
+                $this->processRegistration($formData);
+            }
+        } else {
+            $this->redirectWithMessage("register", "error", "invalid_request_method");
         }
-
-        // If registration is successfull, redirect to login page
-        header('Location: ../login');
-        exit();
     }
 
-    private function handleRegistration() {
-        // Get form data
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $confirmPassword = $_POST['confirmPassword'];
+    private function extractFormData()
+    {
+        return [
+            'username' => $_POST['username'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+            'confirmPassword' => $_POST['confirmPassword']
+        ];
+    }
+
+    private function validateFormData($formData)
+    {
+        $username = $formData['username'];
+        $email = $formData['email'];
+        $password = $formData['password'];
+        $confirmPassword = $formData['confirmPassword'];
 
         // Validate username length
         if (strlen($username) < 4) {
-            $this->returnWithError("register", "invalid_username");
+            $this->redirectWithMessage("register", "error", "invalid_username");
+            return false;
         }
 
         // Validate username characters
         $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         // Validate email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
-            $this->returnWithError("register", "invalid_email");
-        
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->redirectWithMessage("register", "error", "invalid_email");
+            return false;
+        }
+
         // Validate password
-        if (!preg_match(self::PASSWORD_REGEX, $password))
-            $this->returnWithError("register", "invalid_password");
+        if (!preg_match(self::PASSWORD_REGEX, $password)) {
+            $this->redirectWithMessage("register", "error", "invalid_password");
+            return false;
+        }
 
         // Matching passwords
         if ($password != $confirmPassword) {
-            $this->returnWithError("register", "not_matching_passwords");
+            $this->redirectWithMessage("register", "error", "not_matching_passwords");
+            return false;
         }
 
+        return true;
+    }
+
+    private function processRegistration($formData)
+    {
         // Hash password
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $formData['password'] = password_hash($formData['password'], PASSWORD_DEFAULT);
 
         // Call the user model to add the user to the database
-        $rowCount = $this->userModel->createUser($username, $email, $password);
-        
-        echo $rowCount;
+        $rowCount = $this->userModel->createUser($formData['username'], $formData['password'], $formData['password']);
+
+        // Check if user has been successfully added to the database
+        if ($rowCount > 0) {
+            $this->redirectWithMessage("login", "success", "account_created_successfully");
+        } else {
+            $this->redirectWithMessage("register", "error", "account_creation_error");
+        }
     }
 
     //
-    // Handle Login
+    // Handle login
     //
 
-    public function login() {
-
+    public function login()
+    {
     }
 
     //
     // Helper Functions
     //
 
-    private function returnWithError($location, $typeError) {
-        header("Location: ../$location?error=$typeError");
+    private function redirectWithMessage($location, $status, $message)
+    {
+        header("Location: ../$location?$status=$message");
         exit();
     }
 }
-
-?>

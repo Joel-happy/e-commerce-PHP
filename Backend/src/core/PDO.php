@@ -2,10 +2,12 @@
 
 namespace src\core;
 
-class PDO {
-    private $pdo; 
-    
-    public function __construct() {
+class PDO
+{
+    private $pdo;
+
+    public function __construct()
+    {
         try {
             $this->pdo = new \PDO('sqlite:' . __DIR__ . '/../../db/db.sqlite');
 
@@ -16,14 +18,15 @@ class PDO {
         }
     }
 
-    public function select($query) {
+    public function select($query)
+    {
         try {
             // Execute a SELECT query
             $result = $this->pdo->query($query);
 
             // Fetch the results as an associative array
             $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-            
+
             return $data;
         } catch (\PDOException $e) {
             echo 'Query failed : ' . $e->getMessage();
@@ -31,7 +34,8 @@ class PDO {
         }
     }
 
-    public function execute($query, $params) {
+    public function execute($query, $params)
+    {
         try {
             // Prepare query
             $stmt = $this->pdo->prepare($query);
@@ -43,7 +47,7 @@ class PDO {
 
             // Execute the prepared statement (e.g., INSERT, UPDATE, DELETE)
             $stmt->execute();
- 
+
             // Return number of affected rows
             return $stmt->rowCount();
         } catch (\PDOException $e) {
@@ -52,9 +56,8 @@ class PDO {
         }
     }
 
-    public function close() {
+    public function close()
+    {
         $this->pdo = null;
     }
 }
-
-?>
