@@ -22,8 +22,5 @@
             <input type="submit" value="Login">
         </div>
     </form>
-
-    <!-- Comment this line to test server-side form validation -->
-    <script src="src/js/registerRules.js"></script>
 </body>
 </html>

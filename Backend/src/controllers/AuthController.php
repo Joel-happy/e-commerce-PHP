@@ -2,6 +2,8 @@
 
 namespace src\controllers;
 
+use src\utility\Utility;
+
 class AuthController
 {
 
@@ -28,7 +30,7 @@ class AuthController
                 $this->processRegistration($formData);
             }
         } else {
-            $this->redirectWithMessage("register", "error", "invalid_request_method");
+            Utility::redirectWithMessage("register", "error", "invalid_request_method");
         }
     }
 
@@ -51,7 +53,7 @@ class AuthController
 
         // Validate username length
         if (strlen($username) < 4) {
-            $this->redirectWithMessage("register", "error", "invalid_username");
+            Utility::redirectWithMessage("register", "error", "invalid_username");
             return false;
         }
 
@@ -60,19 +62,24 @@ class AuthController
 
         // Validate email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->redirectWithMessage("register", "error", "invalid_email");
+            Utility::redirectWithMessage("register", "error", "invalid_email");
+            return false;
+        }
+
+        if ($this->userModel->isEmailAlreadyInUse($email)) {
+            Utility::redirectWithMessage("register", "error", "email_already_in_use");
             return false;
         }
 
         // Validate password
         if (!preg_match(self::PASSWORD_REGEX, $password)) {
-            $this->redirectWithMessage("register", "error", "invalid_password");
+            Utility::redirectWithMessage("register", "error", "invalid_password");
             return false;
         }
 
         // Matching passwords
         if ($password != $confirmPassword) {
-            $this->redirectWithMessage("register", "error", "not_matching_passwords");
+            Utility::redirectWithMessage("register", "error", "not_matching_passwords");
             return false;
         }
 
@@ -84,14 +91,21 @@ class AuthController
         // Hash password
         $formData['password'] = password_hash($formData['password'], PASSWORD_DEFAULT);
 
+        // Generate token
+        $token = Utility::generateToken();
+
         // Call the user model to add the user to the database
-        $rowCount = $this->userModel->createUser($formData['username'], $formData['password'], $formData['password']);
+        $rowCount = $this->userModel->createUser($formData['username'], $formData['email'], $formData['password'], $token);
 
         // Check if user has been successfully added to the database
         if ($rowCount > 0) {
-            $this->redirectWithMessage("login", "success", "account_created_successfully");
+            if (Utility::sendVerificationEmail($formData['email'], $token)) {
+                Utility::redirectWithMessage("login", "success", "account_created_successfully");
+            } else {
+                Utility::redirectWithMessage("register", "error", "error_send_email");
+            }
         } else {
-            $this->redirectWithMessage("register", "error", "account_creation_error");
+            Utility::redirectWithMessage("register", "error", "account_creation_error");
         }
     }
 
@@ -101,15 +115,5 @@ class AuthController
 
     public function login()
     {
-    }
-
-    //
-    // Helper Functions
-    //
-
-    private function redirectWithMessage($location, $status, $message)
-    {
-        header("Location: ../$location?$status=$message");
-        exit();
     }
 }

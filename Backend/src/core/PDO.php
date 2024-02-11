@@ -18,14 +18,21 @@ class PDO
         }
     }
 
-    public function select($query)
+    public function select($query, $params)
     {
         try {
-            // Execute a SELECT query
-            $result = $this->pdo->query($query);
+           // Prepare query
+            $stmt = $this->pdo->prepare($query);
+    
+            // Bind parameters, if any
+            foreach ($params as $param => $value) {
+                $stmt->bindValue($param, $value);
+            }
+
+            $stmt->execute();
 
             // Fetch the results as an associative array
-            $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+            $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
             return $data;
         } catch (\PDOException $e) {
@@ -40,7 +47,7 @@ class PDO
             // Prepare query
             $stmt = $this->pdo->prepare($query);
 
-            // Bind parameters
+            // Bind parameters, if any
             foreach ($params as $param => $value) {
                 $stmt->bindValue($param, $value);
             }

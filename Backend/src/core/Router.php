@@ -34,6 +34,10 @@ class Router
             $authController->register();
         });
 
+        $this->addRoute('authController/verifyEmail', function () {
+            include('src/views/verifyEmail.php');
+        });
+
         $this->addRoute('authController/login', function () {
             include('src/controllers/AuthController.php');
 
