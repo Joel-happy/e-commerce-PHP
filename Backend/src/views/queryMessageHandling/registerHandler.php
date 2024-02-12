@@ -25,6 +25,9 @@ if (isset($_GET['error'])) {
         case "invalid_request_method":
             echo 'Invalid request method';
             break;
+        case "invalid_token":
+            echo "Verification token is invalid.";
+            break;
         default:
             echo 'An unknown error has occured. We are sorry.';
             break;
