@@ -50,7 +50,6 @@ sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
 ```
 smtp_server=smtp.gmail.com
 smpt_port=587
-sendmail_from = 
 auth_username=your-email@gmail.com
 auth_password=your-app-password
 ```
@@ -61,3 +60,6 @@ auth_password=your-app-password
 
 **(3)** Restart Apache
 - Restart Apache server for the effects to be taken into account.
+
+**IMPORTANT** <br>
+Be careful as to not have any **;** (semicolon) preceding the aforementioned settings to update. This means that the line will be considered a comment and will not be taken into account.
