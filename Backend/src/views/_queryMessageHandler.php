@@ -27,7 +27,10 @@ if (isset($_GET['error'])) {
             echo 'Invalid username. Your username must be at least 5 characters long';
             break;
         case "not_matching_passwords":
-            echo 'Passwords not matching';
+            echo 'Passwords not matching.';
+            break;
+        case "invalid_token":
+            echo 'Verification token is invalid.';
             break;
         case "account_creation_error":
             echo 'We\'re sorry, but we encountered an error while processing your account creation request. Please try again later.';
@@ -41,8 +44,8 @@ if (isset($_GET['success'])) {
         case "account_created_successfully":
             echo "Account created. An email has been sent to verify your account.";
             break;
-        case "invalid_token":
-            echo "Verification token is invalid.";
+        case "account_verified":
+            echo "Your account has been verified. You can now login into your account.";
             break;
         default:
             echo "An unknown error has occurred. We are sorry";
