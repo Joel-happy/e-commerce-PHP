@@ -35,7 +35,11 @@ class Router
         });
 
         $this->addRoute('authController/verifyEmail', function () {
-            include('src/views/verifyEmail.php');
+            $pdo = new \src\core\PDO();
+            $userModel = new \src\models\UserModel($pdo);
+            $authController = new \src\controllers\AuthController($userModel);
+
+            $authController->verifyEmail();
         });
 
         $this->addRoute('authController/login', function () {

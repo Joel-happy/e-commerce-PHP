@@ -41,6 +41,9 @@ if (isset($_GET['success'])) {
         case "account_created_successfully":
             echo "Account created. An email has been sent to verify your account.";
             break;
+        case "invalid_token":
+            echo "Verification token is invalid.";
+            break;
         default:
             echo "An unknown error has occurred. We are sorry";
             break;

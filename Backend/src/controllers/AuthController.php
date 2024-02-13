@@ -112,6 +112,25 @@ class AuthController
         }
     }
 
+
+    // Responsible for processing the verification of user email addresses
+    public function verifyEmail() 
+    {
+        if (isset($_GET['token'])) {
+            // Retrieve token from URL
+            $token = $_GET['token'];
+            $status = $this->userModel->updateUserEmailVerificationStatus($token);
+        
+            if ($status) {
+                Utility::redirectWithMessage("login", "success", "account_verified");
+            } else {
+                Utility::redirectWithMessage("register", "error", "invalid_token");
+            }
+        } else {
+            Utility::redirectWithMessage("register", "error", "invalid_token");
+        }
+    }
+
     //
     // Handle login
     //
