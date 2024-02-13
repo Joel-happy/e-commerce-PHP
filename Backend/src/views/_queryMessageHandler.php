@@ -1,9 +1,19 @@
 <?php
+// Global error handling
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
+        case "invalid_request_method":
+            echo 'Invalid request method';
+            break;
         case "invalid_email":
             echo 'Invalid email address. Please try again (e.g. example@gmail.com)';
             break;
+    }
+}
+
+// register.php
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
         case "email_already_in_use":
             echo 'The provided email address is already in use';
             break;
@@ -22,11 +32,28 @@ if (isset($_GET['error'])) {
         case "account_creation_error":
             echo 'We\'re sorry, but we encountered an error while processing your account creation request. Please try again later.';
             break;
-        case "invalid_request_method":
-            echo 'Invalid request method';
+    }
+}
+
+// login.php 
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case "account_created_successfully":
+            echo "Account created. An email has been sent to verify your account.";
             break;
         default:
-            echo 'An unknown error has occured. We are sorry.';
+            echo "An unknown error has occurred. We are sorry";
+            break;
+    }
+}
+
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "invalid_credentials":
+            echo "Your email or password is incorrect. Please try again.";
+            break;
+        case "email_not_verified":
+            echo "Your email has not been verified yet.";
             break;
     }
 }

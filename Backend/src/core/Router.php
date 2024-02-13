@@ -47,6 +47,14 @@ class Router
 
             $authController->login();
         });
+
+        $this->addRoute('authController/logout', function() {
+            $pdo = new \src\core\PDO();
+            $userModel = new \src\models\UserModel($pdo);
+            $authController = new \src\controllers\AuthController($userModel);
+
+            $authController->logout();
+        });
     }
 
     public function addRoute($path, $handler)

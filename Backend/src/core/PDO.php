@@ -14,7 +14,7 @@ class PDO
             // Set the error handling mode to EXCEPTION, which will make PDO throw exceptions on errors
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
-            echo 'Connection failed : ' . $e->getMessage();
+            error_log('Connection failed : ' . $e->getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ class PDO
 
             return $data;
         } catch (\PDOException $e) {
-            echo 'Query failed : ' . $e->getMessage();
+            error_log('Query failed : ' . $e->getMessage());
             return false;
         }
     }
@@ -58,7 +58,7 @@ class PDO
             // Return number of affected rows
             return $stmt->rowCount();
         } catch (\PDOException $e) {
-            echo 'Query failed : ' . $e->getMessage();
+            error_log('Query failed : ' . $e->getMessage());
             return false;
         }
     }

@@ -6,7 +6,7 @@
     <title>Register</title>
 </head>
 <body>
-    <?php include('queryMessageHandling/registerHandler.php'); ?>
+    <?php include('_queryMessageHandler.php'); ?>
 
     <h2>Register</h2>
     <form action="authController/register" method="post" id="registerForm">
@@ -20,7 +20,7 @@
         <input type="password" id="password" name="password" required> <br>
 
         <label for="confirmPassword">Confirm Password:</label> <br>
-        <input type="password" id="confirmPassword" name="confirmPassword" require> <br>
+        <input type="password" id="confirmPassword" name="confirmPassword" required> <br>
 
         <input type="submit" value="Register">
     </form>
