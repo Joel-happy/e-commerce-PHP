@@ -1,6 +1,6 @@
 <?php
 
-namespace src\core;
+namespace Backend\src\core;
 
 class PDO
 {

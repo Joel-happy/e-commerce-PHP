@@ -1,61 +1,61 @@
 <?php
 
-namespace src\core;
+namespace Backend\src\core;
 
 class Router
 {
     private $routes = [];
 
     public function __construct()
-    {
+    { 
         $this->addRoute('', function () {
-            include('src/views/homePage.php');
+            include('Frontend/views/home.php');
         });
 
         $this->addRoute('home', function () {
-            include('src/views/homePage.php');
+            include('Frontend/views/home.php');
         });
 
         $this->addRoute('register', function () {
-            include('src/views/register.php');
+            include('Frontend/views/register.php');
         });
 
         $this->addRoute('login', function () {
-            include('src/views/login.php');
+            include('Frontend/views/login.php');
         });
 
         $this->addRoute('authController/register', function () {
-            include('src/controllers/AuthController.php');
+            include('Backend/src/controllers/AuthController.php');
 
-            $pdo = new \src\core\PDO();
-            $userModel = new \src\models\UserModel($pdo);
-            $authController = new \src\controllers\AuthController($userModel);
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $authController = new \Backend\src\controllers\AuthController($userModel);
 
             $authController->register();
         });
 
         $this->addRoute('authController/verifyEmail', function () {
-            $pdo = new \src\core\PDO();
-            $userModel = new \src\models\UserModel($pdo);
-            $authController = new \src\controllers\AuthController($userModel);
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $authController = new \Backend\src\controllers\AuthController($userModel);
 
             $authController->verifyEmail();
         });
 
         $this->addRoute('authController/login', function () {
-            include('src/controllers/AuthController.php');
+            include('Backend/src/controllers/AuthController.php');
 
-            $pdo = new \src\core\PDO();
-            $userModel = new \src\models\UserModel($pdo);
-            $authController = new \src\controllers\AuthController($userModel);
-
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $authController = new \Backend\src\controllers\AuthController($userModel);
+            
             $authController->login();
         });
 
         $this->addRoute('authController/logout', function() {
-            $pdo = new \src\core\PDO();
-            $userModel = new \src\models\UserModel($pdo);
-            $authController = new \src\controllers\AuthController($userModel);
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $authController = new \Backend\src\controllers\AuthController($userModel);
 
             $authController->logout();
         });

@@ -1,3 +1,8 @@
+## Table of Contents
+
+- [Installation](#installation)
+- [Prepare environnement](#prepare-environnement)
+
 ## Installation
 
 ### XAMPP

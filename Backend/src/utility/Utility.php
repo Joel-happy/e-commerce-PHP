@@ -1,6 +1,6 @@
 <?php
 
-namespace src\utility;
+namespace Backend\src\utility;
 
 class Utility {
 
@@ -23,7 +23,7 @@ class Utility {
         // Set up email content
         $subject = "Account activation";
         $message = "Thank you for registering. Click the link below to activate your account:\n\n";
-        $message .= "http://localhost/e-commerce-PHP/Backend/authController/verifyEmail?token=" . urlencode($token);
+        $message .= "http://localhost/e-commerce-PHP/authController/verifyEmail?token=" . urlencode($token);
 
         // Additional headers
         $headers = "From: dontReplyPlease@localhost\r\n";

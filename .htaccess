@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /e-commerce-PHP/Backend
+    RewriteBase /e-commerce-PHP
 
     # Redirect all requests to the index.php file
     RewriteCond %{REQUEST_FILENAME} !-f

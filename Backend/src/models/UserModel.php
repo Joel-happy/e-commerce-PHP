@@ -1,6 +1,6 @@
 <?php
 
-namespace src\models;
+namespace Backend\src\models;
 
 class UserModel
 {

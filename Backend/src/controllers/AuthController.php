@@ -1,8 +1,8 @@
 <?php
 
-namespace src\controllers;
+namespace Backend\src\controllers;
 
-use src\utility\Utility;
+use Backend\src\utility\Utility;
 
 // Start or resume session
 session_start();
