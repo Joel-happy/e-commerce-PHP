@@ -4,6 +4,7 @@
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
 */
 // This file is intentionally blank
+
 // Use this file to add JavaScript to your project
 document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
@@ -29,3 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Afficher la première image au chargement de la page
     showItem(currentIndex);
 });
+

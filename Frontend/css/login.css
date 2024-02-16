@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
 }
@@ -43,11 +44,11 @@
 
 
 .btn {
-    background-color: #f4772a;
+    background-color: #212966;
 }
 
 .btn:hover {
-    background-color: #212966;
+    background-color: #999BB8;
 }
 
 header {
@@ -57,7 +58,8 @@ header {
 main {
     background-color: #F4772A;
 }
-footer{
+
+footer {
     background-color: #999bb8;
 }
 
@@ -70,9 +72,24 @@ footer{
     width: 10%;
 }
 
-a{
+a {
     text-decoration: none;
-    color:black;
+    color: black;
 }
 
 
+.logo {
+    width: 30%;
+}
+
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+}
+
+.inscription{
+    color: #212966;
+}
