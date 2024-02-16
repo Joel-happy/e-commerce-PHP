@@ -2,7 +2,7 @@
     margin: 0;
 }
 
-.logo>img{
+.logo > img {
     width: 15%;
 }
 
@@ -51,8 +51,28 @@
 }
 
 header {
-    background-color: #7C84A6;
+    background-color: #E5DEDC;
 }
-main{
-    background-color:#E5DEDC;
+
+main {
+    background-color: #F4772A;
 }
+footer{
+    background-color: #999bb8;
+}
+
+.trait_footer {
+    width: 75%;
+    border-bottom: solid;
+}
+
+.paiement {
+    width: 10%;
+}
+
+a{
+    text-decoration: none;
+    color:black;
+}
+
+
