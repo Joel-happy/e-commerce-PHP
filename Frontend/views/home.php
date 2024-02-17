@@ -44,26 +44,23 @@
 </header>
 <main class="bg-warning col-12 container-fluid">
     <nav class="nav_main">
-            <!-- ((TEMP) For testing purposes (TEMP)) -->
-            <?php
-            // Start session
-            session_start();
+        <!-- ((TEMP) For testing purposes (TEMP)) -->
+        <?php
+        // Start session
+        session_start();
 
-            // Check if session exists
-            if (isset($_SESSION['user_id'])) {
-                // Session exists, display user information
-                echo "<h4>User ID: {$_SESSION['user_id']}</h4>";
-                echo "<h4>Username: {$_SESSION['username']}</h4>";
-                echo "<h4>Email: {$_SESSION['email']}</h4>";
-                echo "<h4>Admin: {$_SESSION['admin']}</h4>";
-                echo '<h4><a href="authController/logout">Logout</a></h4>';
-            } else {
-                // Session does not exist, display registration and login buttons
-                echo '<h4><a href="register">Register</a></h4> <br>';
-                echo '<h4><a href="login">Login</a></h4>';
-            }
-            ?>
-            <!-- ((TEMP) For testing purposes (TEMP)) -->
+        // Check if session exists
+        if (isset($_SESSION['user_id'])) {
+            // Session exists, display user information
+            echo '<h4><a href="userProfile">Profile</a></h4>';
+            echo '<h4><a href="authController/logout">Logout</a></h4>';
+        } else {
+            // Session does not exist, display registration and login buttons
+            echo '<h4><a href="register">Register</a></h4> <br>';
+             echo '<h4><a href="login">Login</a></h4>';
+        }
+        ?>
+        <!-- ((TEMP) For testing purposes (TEMP)) -->
     </nav>
     <aside>
 

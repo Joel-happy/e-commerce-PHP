@@ -24,6 +24,10 @@ class Router
             include('Frontend/views/login.php');
         });
 
+        $this->addRoute('userProfile', function () {
+            include('Frontend/views/userProfile.php');
+        });
+
         $this->addRoute('authController/register', function () {
             include('Backend/src/controllers/AuthController.php');
 
