@@ -8,6 +8,10 @@ class Router
 
     public function __construct()
     { 
+        //
+        // Views
+        // 
+
         $this->addRoute('', function () {
             include('Frontend/views/home.php');
         });
@@ -27,6 +31,10 @@ class Router
         $this->addRoute('userProfile', function () {
             include('Frontend/views/userProfile.php');
         });
+
+        //
+        // AuthController
+        //
 
         $this->addRoute('authController/register', function () {
             include('Backend/src/controllers/AuthController.php');
@@ -62,6 +70,34 @@ class Router
             $authController = new \Backend\src\controllers\AuthController($userModel);
 
             $authController->logout();
+        });
+
+        //
+        // UserController
+        //
+
+        $this->addRoute('userController/updateUsername', function() {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updateUsername();
+        });
+
+        $this->addRoute('userController/updateEmail', function() {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updateEmail();
+        });
+
+        $this->addRoute('userController/updatePassword', function() {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updatePassword();
         });
     }
 

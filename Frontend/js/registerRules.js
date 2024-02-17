@@ -48,6 +48,6 @@ form.addEventListener("submit", function(event) {
     alert("Password must contain at least 8 characters, including a capital letter, a number, and a special character");
     return;
   }
-
+  
   form.submit();
 })

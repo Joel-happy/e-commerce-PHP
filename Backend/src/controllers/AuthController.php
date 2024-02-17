@@ -9,13 +9,9 @@ session_start();
 
 class AuthController
 {
-
     // Fields
     private $userModel;
-
-    // Constants
-    const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
-
+    
     public function __construct($userModel)
     {
         $this->userModel = $userModel;
@@ -55,19 +51,13 @@ class AuthController
         $confirmPassword = $formData['confirmPassword'];
 
         // Validate username length
-        if (strlen($username) < 4) {
-            Utility::redirectWithMessage("register", "error", "invalid_username");
-            return false;
-        }
+        Utility::validateUsername("register", $username);
 
         // Validate username characters
         $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         // Validate email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            Utility::redirectWithMessage("register", "error", "invalid_email");
-            return false;
-        }
+        Utility::validateEmail("register", $email);
 
         if ($this->userModel->isEmailAlreadyInUse($email)) {
             Utility::redirectWithMessage("register", "error", "email_already_in_use");
@@ -75,10 +65,7 @@ class AuthController
         }
 
         // Validate password
-        if (!preg_match(self::PASSWORD_REGEX, $password)) {
-            Utility::redirectWithMessage("register", "error", "invalid_password");
-            return false;
-        }
+        Utility::validatePassword("register", $password);
 
         // Matching passwords
         if ($password != $confirmPassword) {
@@ -158,10 +145,7 @@ class AuthController
     private function validateLoginFormData($formData) 
     {
         // Validate email
-        if (!filter_var($formData['email'], FILTER_VALIDATE_EMAIL)) {
-            Utility::redirectWithMessage("login", "error", "invalid_email");
-            return false;
-        }
+        Utility::validateEmail("login", $formData['email']);
     }
 
     private function processLogin($formData) {

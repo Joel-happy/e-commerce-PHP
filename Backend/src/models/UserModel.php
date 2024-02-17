@@ -44,6 +44,7 @@ class UserModel
         return $count > 0;
     }
 
+    // Get existing user by by email and password
     public function getUserDataByEmailAndPassword($email, $password)
     {
         $query = "SELECT id, username, email, emailVerified, admin, password FROM account WHERE email=:email";
