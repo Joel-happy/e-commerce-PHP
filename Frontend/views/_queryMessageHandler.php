@@ -70,6 +70,15 @@ if (isset($_GET['success'])) {
         case "username_updated":
             echo "Your username has been updated.";
             break;
+        case "password_updated":
+            echo "Your password has been updated.";
+            break;
+        case "email_sent_for_update":
+            echo "We have sent you an email to verify your new email address.";
+            break;
+        case "email_updated":
+            echo "Your email has been updated.";
+            break;
     }
 }
 
@@ -78,5 +87,12 @@ if (isset($_GET['error'])) {
         case "username_not_updated":
             echo "We have encountered an error. Your username has not been updated.";
             break;
+        case "password_not_updated":
+            echo "We have encountered an error. Your password has not been updated.";
+            break;
+        case "email_not_sent":
+            echo "We are sorry. We were not able to send an email to your new email address.";
+            break;
     }
 }
+

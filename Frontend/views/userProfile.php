@@ -40,7 +40,7 @@
         <button type="button" onclick="showUpdateFields('email')">Update</button>
         <!-- Hidden fields -->
         <div id="emailUpdate" class="hidden">
-            <form action="userController/updateEmail" method="post" id="emailForm">
+            <form action="userController/sendEmailToUpdate" method="post" id="emailForm">
                 <label for="newEmail">New Email</label>
                 <input type="email" id="newEmail" name="newEmail" required>
                 <button type="submit">Save</button>

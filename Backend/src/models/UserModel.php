@@ -96,7 +96,7 @@ class UserModel
 
     // Verify the user email address
     public function updateUserEmailVerificationStatus($token) {
-        $query = "UPDATE account SET emailVerified = 1 WHERE token=:token";
+        $query = "UPDATE account SET emailVerified=1 WHERE token=:token";
         $params = [
             ':token' => $token,
         ];
@@ -114,6 +114,43 @@ class UserModel
         ];
 
         $rowCount = $this->pdo->execute($query, $params);
-        return $rowCount;
+        return ($rowCount > 0);
+    }
+
+    // Update the user's email
+    public function updateUserEmail($email, $token, $id) {
+        $query = "UPDATE account SET email=:email WHERE token=:token AND id=:id";
+        $params = [
+            ':email' => $email,
+            ':token' => $token,
+            ':id' => $id,
+        ];
+
+        $rowCount = $this->pdo->execute($query, $params);
+        return ($rowCount > 0); 
+    }
+
+    // Update user's token for future email verification
+    public function updateToken($token, $id) {
+        $query = "UPDATE account SET token=:token WHERE id=:id";
+        $params = [
+            ':token' => $token,
+            ':id' => $id,
+        ];
+
+        $rowCount = $this->pdo->execute($query, $params);
+        return ($rowCount > 0);
+    }
+
+    // Update user's password
+    public function updatePassword($password, $id) {
+        $query = "UPDATE account SET password=:password WHERE id=:id";
+        $params = [
+            ':password' => $password,
+            ':id' => $id,
+        ];
+
+        $rowCount = $this->pdo->execute($query, $params);
+        return ($rowCount > 0);
     }
 }

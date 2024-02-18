@@ -84,12 +84,12 @@ class Router
             $userController->updateUsername();
         });
 
-        $this->addRoute('userController/updateEmail', function() {
+        $this->addRoute('userController/sendEmailToUpdate', function() {
             $pdo = new \Backend\src\core\PDO();
             $userModel = new \Backend\src\models\UserModel($pdo);
             $userController = new \Backend\src\controllers\UserController($userModel);
 
-            $userController->updateEmail();
+            $userController->sendEmailToUpdate();
         });
 
         $this->addRoute('userController/updatePassword', function() {
@@ -99,6 +99,15 @@ class Router
 
             $userController->updatePassword();
         });
+
+        $this->addRoute('userController/updateEmail', function () {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updateEmail();
+        });
+
     }
 
     public function addRoute($path, $handler)
