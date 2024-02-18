@@ -8,6 +8,10 @@ class Router
 
     public function __construct()
     { 
+        //
+        // Views
+        // 
+
         $this->addRoute('', function () {
             include('Frontend/views/home.php');
         });
@@ -23,6 +27,14 @@ class Router
         $this->addRoute('login', function () {
             include('Frontend/views/login.php');
         });
+
+        $this->addRoute('userProfile', function () {
+            include('Frontend/views/userProfile.php');
+        });
+
+        //
+        // AuthController
+        //
 
         $this->addRoute('authController/register', function () {
             include('Backend/src/controllers/AuthController.php');
@@ -59,6 +71,43 @@ class Router
 
             $authController->logout();
         });
+
+        //
+        // UserController
+        //
+
+        $this->addRoute('userController/updateUsername', function() {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updateUsername();
+        });
+
+        $this->addRoute('userController/sendEmailToUpdate', function() {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->sendEmailToUpdate();
+        });
+
+        $this->addRoute('userController/updatePassword', function() {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updatePassword();
+        });
+
+        $this->addRoute('userController/updateEmail', function () {
+            $pdo = new \Backend\src\core\PDO();
+            $userModel = new \Backend\src\models\UserModel($pdo);
+            $userController = new \Backend\src\controllers\UserController($userModel);
+
+            $userController->updateEmail();
+        });
+
     }
 
     public function addRoute($path, $handler)

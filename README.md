@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# e-commerce-PHP
-
-Le but de ce projet est de créer un site de e-commerce
-=======
 ## Table of Contents
 
 - [Installation](#installation)
@@ -73,4 +68,3 @@ auth_password=your-app-password
 
 **IMPORTANT** <br>
 Be careful as to not have any **;** (semicolon) preceding the aforementioned settings to update. This means that the line will be considered a comment and will not be taken into account.
->>>>>>> d12174fefade1f67eb36a19ca438c6090d158138
