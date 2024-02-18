@@ -2,75 +2,152 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Y'store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="apple-touch-icon" sizes="57x57" href="Frontend/assets/icones/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="Frontend/assets/icones/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="Frontend/assets/icones/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="Frontend/assets/icones/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="Frontend/assets/icones/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="Frontend/assets/icones/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="Frontend/assets/icones/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="Frontend/assets/icones/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="Frontend/assets/icones/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="Frontend/assets/icones/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="Frontend/assets/icones/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="Frontend/assets/icones/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="Frontend/assets/icones/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="Frontend/css/login.css">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
+    <link href="Frontend/assets/icones/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
+    <link href="Frontend/assets/icones/favicons/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60">
+    <link href="Frontend/assets/icones/favicons/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+    <link href="Frontend/assets/icones/favicons/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
+    <link href="Frontend/assets/icones/favicons/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+    <link href="Frontend/assets/icones/favicons/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
+    <link href="Frontend/assets/icones/favicons/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
+    <link href="Frontend/assets/icones/favicons/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
+    <link href="Frontend/assets/icones/favicons/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="Frontend/assets/icones/favicons/android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png">
+    <link href="Frontend/assets/icones/favicons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="Frontend/assets/icones/favicons/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+    <link href="Frontend/assets/icones/favicons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="Frontend/assets/icones/favicons/manifest.json" rel="manifest">
+    <meta content="#ffffff" name="msapplication-TileColor">
+    <meta content="/ms-icon-144x144.png" name="msapplication-TileImage">
+    <meta content="#ffffff" name="theme-color">
+    <link href="Frontend/css/login.css" rel="stylesheet">
 </head>
-<body class="row">
-  <?php include('_queryMessageHandler.php'); ?>
+<body class="d-flex flex-column">
 
-  <section class="vh-100">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6 text-black">
+<?php include('_queryMessageHandler.php'); ?>
 
-        <div class="px-5 ms-xl-4">
-          <img class="w-25" src="Frontend/assets/icones/Logo.png">
-        </div>
-
-        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-
-          <form action="authController/login" method="post" style="width: 23rem;">
-
-            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
-
-            <div class="form-outline mb-4">
-              <label class="form-label" for="email">Email address</label>
-              <input type="email" id="email" name="email" class="form-control form-control-lg" required />
-            </div>
-
-            <div class="form-outline mb-4">
-              <label class="form-label" for="password">Password</label>
-              <input type="password" id="password" name="password" class="form-control form-control-lg" required />
-            </div>
-
-            <div class="pt-1 mb-4">
-              <input class="btn btn-info btn-lg btn-block" type="submit" value="Login" />
-            </div>
-
-            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
-            <p>Don't have an account? <a href="#!" class="link-info">Register here</a></p>
-
-          </form>
-
-        </div>
-
-      </div>
-      <div class="col-sm-6 px-0 d-none d-sm-block">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
-          alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
-      </div>
+<header class="container-fluid h25 p-0">
+    <div class="">
+        <a class="logo" href="home">
+            <img class="" src="Frontend/assets/icones/Logo.png" alt="logo">
+        </a>
     </div>
-  </div>
+</header>
+
+<main class="container-fluid d-flex justify-content-around align-items-center h-75">
+    <section class="">
+        <form action="authController/login" method="post" style="width: 23rem;">
+            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Connectez-vous</h3>
+            <div class="form-outline mb-4">
+                <label class="form-label" for="email">Adresse mail</label>
+                <input type="email" id="email" name="email" class="form-control form-control-lg" required />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label" for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" class="form-control form-control-lg" required />
+              </div>
+  
+              <div class="pt-1 mb-4">
+                <input class="btn btn-info btn-lg btn-block" type="submit" value="Se connecter" />
+              </div>
+
+            <p class="small mb-5 pb-lg-2"><a class="link" href="#">Mot de passe oublié ?</a></p>
+            <p>Vous n'avez pas encore de compte ? <a class="link inscription" href="register">Inscrivez vous</a></p>
+        </form>
+    </section>
+    <section class="carouss">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100 img-fluid" alt="Image 1" src="Frontend/assets/produits/telephone/tel3.jpeg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-fluid" alt="Image 2" src="Frontend/assets/produits/casque/casque5.jpeg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-fluid" alt="Image 3" src="Frontend/assets/produits/clavier_souris/cs3.jpeg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-fluid" alt="Image 4" src="Frontend/assets/produits/casque/casque2.jpg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-fluid" alt="Image 5" src="Frontend/assets/produits/clavier_souris/cs5.jpg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-fluid" alt="Image 6" src="Frontend/assets/produits/telephone/tel4.jpeg">
+            </div>
+        </div>
+    </div>
 </section>
+
+</main>
+<footer class="container-fluid">
+    <section class="section1_footer d-flex justify-content-around m-5">
+        <div class="d-flex flex-column">
+            <div class="text-center p-3">
+                <h2>ADRESSES</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-center">
+                <h4>
+                    <a class="text-decoration-none " href="mailto:someone@example.com">Y'store@courriel.com</a>
+                </h4>
+                <h4 class="py-5">08 118 712 218</h4>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column">
+            <div class="text-center p-3">
+                <h2>ACHETER</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-around align-items-center">
+                <h6><a class="" href="#">Tout voir</a></h6>
+                <h6><a class="" href="#">Clavier/Souris</a></h6>
+                <h6><a class="" href="#">Casques</a></h6>
+                <h6><a class="" href="#">Ordinateurs</a></h6>
+                <h6><a class="" href="#">Téléphones</a></h6>
+                <h6><a class="" href="#">Promo</a></h6>
+            </div>
+
+        </div>
+        <div class="d-flex flex-column">
+            <div class="text-center p-3">
+                <h2>POLITIQUE</h2>
+            </div>
+            <div class="d-flex flex-column justify-content-between">
+                <h6><a href="#">Expédition et retours</a></h6>
+                <h6><a href="#">Termes et conditions</a></h6>
+                <h6><a href="#">FAQ</a></h6>
+                <h6><a href="#">Politique de cookies</a></h6>
+                <h6><a href="#">Moyens de paiement</a></h6>
+                <h6><a href="#">Mentions légales</a></h6>
+            </div>
+        </div>
+
+    </section>
+    <section class="section2_footer">
+        <div class="text-center m-3 d-flex flex-column align-items-center mt-5">
+            <div class="trait_footer mb-3"></div>
+            <h3 class="">Nous acceptons les moyens de paiement suivants</h3>
+        </div>
+        <div class="d-flex justify-content-around">
+
+            <img class="paiement" src="Frontend/assets/icones/mastercard.svg">
+
+
+            <img class="paiement" src="Frontend/assets/icones/paypal.svg">
+
+
+            <img class="paiement" src="Frontend/assets/icones/visa.svg">
+
+        </div>
+    </section>
+</footer>
+<script src="Frontend/js/scripts.js"></script>
 </body>
 </html>
