@@ -44,6 +44,22 @@ class UserModel
         return $count > 0;
     }
 
+    // Check if given username is already used by a registered user
+    public function isUsernameAlreadyInUse($username)
+    {
+        $query = "SELECT COUNT(*) AS count FROM account WHERE username=:username";
+        $params = [
+            ':username' => $username,
+        ];
+
+        $result = $this->pdo->select($query, $params);
+
+        // Extract count from the result
+        $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
+
+        return $count > 0;
+    }
+
     // Get existing user by by email and password
     public function getUserDataByEmailAndPassword($email, $password)
     {
@@ -78,15 +94,26 @@ class UserModel
         }
     }
 
-    // If possible, verify the user email address
+    // Verify the user email address
     public function updateUserEmailVerificationStatus($token) {
         $query = "UPDATE account SET emailVerified = 1 WHERE token=:token";
-
         $params = [
             ':token' => $token,
         ];
 
         $rowCount = $this->pdo->execute($query, $params);
         return ($rowCount > 0); 
+    }
+
+    // Update the user's username
+    public function updateUserUsername($username, $id) {
+        $query = "UPDATE account SET username=:username WHERE id=:id";
+        $params = [
+            ':username' => $username,
+            ':id' => $id,
+        ];
+
+        $rowCount = $this->pdo->execute($query, $params);
+        return $rowCount;
     }
 }

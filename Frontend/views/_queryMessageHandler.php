@@ -17,6 +17,9 @@ if (isset($_GET['error'])) {
         case "email_already_in_use":
             echo 'The provided email address is already in use';
             break;
+        case "username_already_in_use":
+            echo 'The provided username is already in use';
+            break;
         case "error_send_email":
             echo 'We could not send the verification email to the provided email address.';
             break;
@@ -47,9 +50,6 @@ if (isset($_GET['success'])) {
         case "account_verified":
             echo "Your account has been verified. You can now login into your account.";
             break;
-        default:
-            echo "An unknown error has occurred. We are sorry";
-            break;
     }
 }
 
@@ -60,6 +60,23 @@ if (isset($_GET['error'])) {
             break;
         case "email_not_verified":
             echo "Your email has not been verified yet.";
+            break;
+    }
+}
+
+// userProfile.php 
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case "username_updated":
+            echo "Your username has been updated.";
+            break;
+    }
+}
+
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "username_not_updated":
+            echo "We have encountered an error. Your username has not been updated.";
             break;
     }
 }

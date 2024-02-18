@@ -56,9 +56,16 @@ class AuthController
         // Validate username characters
         $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+        // Check if username is already in use
+        if ($this->userModel->isUsernameAlreadyInUse($username)) {
+            Utility::redirectWithMessage("register", "error", "username_already_in_use");
+            return false;
+        }
+
         // Validate email
         Utility::validateEmail("register", $email);
 
+        // Check if email is already in use
         if ($this->userModel->isEmailAlreadyInUse($email)) {
             Utility::redirectWithMessage("register", "error", "email_already_in_use");
             return false;
@@ -98,7 +105,6 @@ class AuthController
             Utility::redirectWithMessage("register", "error", "account_creation_error");
         }
     }
-
 
     // Responsible for processing the verification of user email addresses
     public function verifyEmail() 

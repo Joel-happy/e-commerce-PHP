@@ -13,7 +13,10 @@
 </head>
 
 <body>
-    <?php include('_notLoggedIn.php'); ?>
+    <?php 
+        include('_notLoggedIn.php'); 
+        include('_queryMessageHandler.php');
+    ?>
 
     <h2>User Profile</h2>
 
@@ -29,7 +32,7 @@
                 <button type="submit">Save</button>
             </form>
         </div> <!-- End hidden fields -->
-        <!-- End username -->
+        <br> <!-- End username -->
 
         <!-- Email -->
         <label for="email">Email</label>
