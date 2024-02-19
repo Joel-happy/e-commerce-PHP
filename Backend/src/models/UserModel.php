@@ -4,8 +4,6 @@ namespace Backend\src\models;
 
 class UserModel
 {
-
-    // Fields
     private $pdo;
 
     public function __construct($pdo)
@@ -13,8 +11,8 @@ class UserModel
         $this->pdo = $pdo;
     }
 
-    // Create an account to be used by an user
-    public function createUser($username, $email, $password, $token)
+    // Create an account
+    public function createAccount($username, $email, $password, $token)
     {
         $query = "INSERT INTO account(username, email, password, token) VALUES(:username, :email, :password, :token)";
         $params = [
@@ -25,10 +23,10 @@ class UserModel
         ];
 
         $rowCount = $this->pdo->execute($query, $params);
-        return $rowCount;
+        return ($rowCount > 0);
     }
 
-    // Check if given email is already used by a registered user
+    // Check if given email is already used
     public function isEmailAlreadyInUse($email)
     {
         $query = "SELECT COUNT(*) AS count FROM account WHERE email=:email";
@@ -38,13 +36,11 @@ class UserModel
 
         $result = $this->pdo->select($query, $params);
 
-        // Extract count from the result
         $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
-
-        return $count > 0;
+        return ($count > 0);
     }
 
-    // Check if given username is already used by a registered user
+    // Check if given username is already used
     public function isUsernameAlreadyInUse($username)
     {
         $query = "SELECT COUNT(*) AS count FROM account WHERE username=:username";
@@ -54,14 +50,12 @@ class UserModel
 
         $result = $this->pdo->select($query, $params);
 
-        // Extract count from the result
         $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
-
-        return $count > 0;
+        return ($count > 0);
     }
 
-    // Get existing user by by email and password
-    public function getUserDataByEmailAndPassword($email, $password)
+    // Get existing user by email and password
+    public function getUserByEmailAndPassword($email, $password)
     {
         $query = "SELECT id, username, email, emailVerified, admin, password FROM account WHERE email=:email";
         $params = [
@@ -74,7 +68,7 @@ class UserModel
         if ($result && count($result) > 0) {
             $hashedPassword = $result[0]['password'];
 
-            // Verify the hashed password
+            // Verify if given password matches with stored hashed password
             if (password_verify($password, $hashedPassword)) {
                 // Passwords match, return user data
                 return [
@@ -95,7 +89,7 @@ class UserModel
     }
 
     // Verify the user email address
-    public function updateUserEmailVerificationStatus($token) {
+    public function updateEmailVerificationStatus($token) {
         $query = "UPDATE account SET emailVerified=1 WHERE token=:token";
         $params = [
             ':token' => $token,
@@ -106,7 +100,7 @@ class UserModel
     }
 
     // Update the user's username
-    public function updateUserUsername($username, $id) {
+    public function updateUsername($username, $id) {
         $query = "UPDATE account SET username=:username WHERE id=:id";
         $params = [
             ':username' => $username,
@@ -118,7 +112,7 @@ class UserModel
     }
 
     // Update the user's email
-    public function updateUserEmail($email, $token, $id) {
+    public function updateEmail($email, $token, $id) {
         $query = "UPDATE account SET email=:email WHERE token=:token AND id=:id";
         $params = [
             ':email' => $email,
@@ -130,8 +124,8 @@ class UserModel
         return ($rowCount > 0); 
     }
 
-    // Update user's token for future email verification
-    public function updateToken($token, $id) {
+    // Update user's token for email verification
+    public function updateEmailVerificationToken($token, $id) {
         $query = "UPDATE account SET token=:token WHERE id=:id";
         $params = [
             ':token' => $token,

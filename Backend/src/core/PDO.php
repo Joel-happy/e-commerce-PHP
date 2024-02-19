@@ -21,9 +21,9 @@ class PDO
     public function select($query, $params)
     {
         try {
-           // Prepare query
+            // Prepare query
             $stmt = $this->pdo->prepare($query);
-    
+
             // Bind parameters, if any
             foreach ($params as $param => $value) {
                 $stmt->bindValue($param, $value);

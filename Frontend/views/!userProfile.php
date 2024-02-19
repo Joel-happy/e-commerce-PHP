@@ -57,8 +57,8 @@
             <form action="userController/updatePassword" method="post" id="passwordForm">
                 <label for="newPassword">New Password</label>
                 <input type="password" id="newPassword" name="newPassword" required> <br>
-                <label for="newPasswordConfirm">New Password Confirm</label>
-                <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" required>
+                <label for="newConfirmPassword">New Password Confirm</label>
+                <input type="password" id="newConfirmPassword" name="newConfirmPassword" required>
                 <button type="submit">Save</button>
             </form>
         </div> <!-- End hidden fields -->
