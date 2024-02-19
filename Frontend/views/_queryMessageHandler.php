@@ -17,6 +17,9 @@ if (isset($_GET['error'])) {
         case "email_already_in_use":
             echo 'The provided email address is already in use';
             break;
+        case "username_already_in_use":
+            echo 'The provided username is already in use';
+            break;
         case "error_send_email":
             echo 'We could not send the verification email to the provided email address.';
             break;
@@ -47,9 +50,6 @@ if (isset($_GET['success'])) {
         case "account_verified":
             echo "Your account has been verified. You can now login into your account.";
             break;
-        default:
-            echo "An unknown error has occurred. We are sorry";
-            break;
     }
 }
 
@@ -63,3 +63,36 @@ if (isset($_GET['error'])) {
             break;
     }
 }
+
+// userProfile.php 
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case "username_updated":
+            echo "Your username has been updated.";
+            break;
+        case "password_updated":
+            echo "Your password has been updated.";
+            break;
+        case "email_sent_for_update":
+            echo "We have sent you an email to verify your new email address.";
+            break;
+        case "email_updated":
+            echo "Your email has been updated.";
+            break;
+    }
+}
+
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "username_not_updated":
+            echo "We have encountered an error. Your username has not been updated.";
+            break;
+        case "password_not_updated":
+            echo "We have encountered an error. Your password has not been updated.";
+            break;
+        case "email_not_sent":
+            echo "We are sorry. We were not able to send an email to your new email address.";
+            break;
+    }
+}
+
