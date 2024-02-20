@@ -14,137 +14,187 @@ class UserModel
     // Create an account
     public function createAccount($username, $email, $password, $token)
     {
-        $query = "INSERT INTO account(username, email, password, token) VALUES(:username, :email, :password, :token)";
-        $params = [
-            ':username' => $username,
-            ':email' => $email,
-            ':password' => $password,
-            ':token' => $token
-        ];
+        try {
+            $query = "INSERT INTO account(username, email, password, token) VALUES(:username, :email, :password, :token)";
+            $params = [
+                ':username' => $username,
+                ':email' => $email,
+                ':password' => $password,
+                ':token' => $token
+            ];
 
-        $rowCount = $this->pdo->execute($query, $params);
-        return ($rowCount > 0);
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Check if given email is already used
     public function isEmailAlreadyInUse($email)
     {
-        $query = "SELECT COUNT(*) AS count FROM account WHERE email=:email";
-        $params = [
-            ':email' => $email,
-        ];
+        try {
+            $query = "SELECT COUNT(*) AS count FROM account WHERE email=:email";
+            $params = [
+                ':email' => $email,
+            ];
 
-        $result = $this->pdo->select($query, $params);
+            $result = $this->pdo->select($query, $params);
 
-        $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
-        return ($count > 0);
+            $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
+            return ($count > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Check if given username is already used
     public function isUsernameAlreadyInUse($username)
     {
-        $query = "SELECT COUNT(*) AS count FROM account WHERE username=:username";
-        $params = [
-            ':username' => $username,
-        ];
+        try {
+            $query = "SELECT COUNT(*) AS count FROM account WHERE username=:username";
+            $params = [
+                ':username' => $username,
+            ];
 
-        $result = $this->pdo->select($query, $params);
+            $result = $this->pdo->select($query, $params);
 
-        $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
-        return ($count > 0);
+            $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
+            return ($count > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Get existing user by email and password
     public function getUserByEmailAndPassword($email, $password)
     {
-        $query = "SELECT id, username, email, emailVerified, admin, password FROM account WHERE email=:email";
-        $params = [
-            ':email' => $email,
-        ];
-    
-        $result = $this->pdo->select($query, $params);
+        try {
+            $query = "SELECT id, username, email, emailVerified, admin, password FROM account WHERE email=:email";
+            $params = [
+                ':email' => $email,
+            ];
 
-        // Check if a row was returned
-        if ($result && count($result) > 0) {
-            $hashedPassword = $result[0]['password'];
+            $result = $this->pdo->select($query, $params);
 
-            // Verify if given password matches with stored hashed password
-            if (password_verify($password, $hashedPassword)) {
-                // Passwords match, return user data
-                return [
-                    'id' => $result[0]['id'],
-                    'username' => $result[0]['username'],
-                    'email' => $result[0]['email'],
-                    'emailVerified' => $result[0]['emailVerified'],
-                    'admin' => $result[0]['admin'],
-                ];
+            // Check if a row was returned
+            if ($result && count($result) > 0) {
+                $hashedPassword = $result[0]['password'];
+
+                // Verify if given password matches with stored hashed password
+                if (password_verify($password, $hashedPassword)) {
+                    // Passwords match, return user data
+                    return [
+                        'id' => $result[0]['id'],
+                        'username' => $result[0]['username'],
+                        'email' => $result[0]['email'],
+                        'emailVerified' => $result[0]['emailVerified'],
+                        'admin' => $result[0]['admin'],
+                    ];
+                } else {
+                    // Passwords do not match
+                    return null;
+                }
             } else {
-                // Passwords do not match
+                // No user found
                 return null;
             }
-        } else {
-            // No user found
-            return null;
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
         }
     }
 
     // Verify the user email address
-    public function updateEmailVerificationStatus($token) {
-        $query = "UPDATE account SET emailVerified=1 WHERE token=:token";
-        $params = [
-            ':token' => $token,
-        ];
+    public function updateEmailVerificationStatus($token)
+    {
+        try {
+            $query = "UPDATE account SET emailVerified=1 WHERE token=:token";
+            $params = [
+                ':token' => $token,
+            ];
 
-        $rowCount = $this->pdo->execute($query, $params);
-        return ($rowCount > 0); 
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Update the user's username
-    public function updateUsername($username, $id) {
-        $query = "UPDATE account SET username=:username WHERE id=:id";
-        $params = [
-            ':username' => $username,
-            ':id' => $id,
-        ];
+    public function updateUsername($username, $id)
+    {
+        try {
+            $query = "UPDATE account SET username=:username WHERE id=:id";
+            $params = [
+                ':username' => $username,
+                ':id' => $id,
+            ];
 
-        $rowCount = $this->pdo->execute($query, $params);
-        return ($rowCount > 0);
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Update the user's email
-    public function updateEmail($email, $token, $id) {
-        $query = "UPDATE account SET email=:email WHERE token=:token AND id=:id";
-        $params = [
-            ':email' => $email,
-            ':token' => $token,
-            ':id' => $id,
-        ];
+    public function updateEmail($email, $token, $id)
+    {
+        try {
+            $query = "UPDATE account SET email=:email WHERE token=:token AND id=:id";
+            $params = [
+                ':email' => $email,
+                ':token' => $token,
+                ':id' => $id,
+            ];
 
-        $rowCount = $this->pdo->execute($query, $params);
-        return ($rowCount > 0); 
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Update user's token for email verification
-    public function updateEmailVerificationToken($token, $id) {
-        $query = "UPDATE account SET token=:token WHERE id=:id";
-        $params = [
-            ':token' => $token,
-            ':id' => $id,
-        ];
+    public function updateEmailVerificationToken($token, $id)
+    {
+        try {
+            $query = "UPDATE account SET token=:token WHERE id=:id";
+            $params = [
+                ':token' => $token,
+                ':id' => $id,
+            ];
 
-        $rowCount = $this->pdo->execute($query, $params);
-        return ($rowCount > 0);
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 
     // Update user's password
-    public function updatePassword($password, $id) {
-        $query = "UPDATE account SET password=:password WHERE id=:id";
-        $params = [
-            ':password' => $password,
-            ':id' => $id,
-        ];
+    public function updatePassword($password, $id)
+    {
+        try {
+            $query = "UPDATE account SET password=:password WHERE id=:id";
+            $params = [
+                ':password' => $password,
+                ':id' => $id,
+            ];
 
-        $rowCount = $this->pdo->execute($query, $params);
-        return ($rowCount > 0);
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+            return false;
+        }
     }
 }

@@ -26,6 +26,6 @@
     </form>
 
     <!-- Comment this line to test server-side form validation -->
-    <script src="Frontend/js/registerRules.js"></script>
+    <script src="Frontend/js/register.js"></script>
 </body>
 </html>

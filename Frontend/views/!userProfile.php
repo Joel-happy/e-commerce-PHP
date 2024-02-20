@@ -65,7 +65,7 @@
         <br> <!-- End password -->
 
     <!-- Comment this line to test server-side form validation -->
-    <script src="Frontend/js/userProfileUpdate.js"></script>
+    <script src="Frontend/js/userProfile.js"></script>
 </body>
 
 </html>

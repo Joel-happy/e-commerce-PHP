@@ -96,3 +96,17 @@ if (isset($_GET['error'])) {
     }
 }
 
+// addProduct.php
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "value_not_string":
+            echo "The product's name, description and category must be a string";
+            break;
+        case "value_not_numeric":
+            echo "The product's price must be composed of only numeric values";
+            break;
+        case "product_not_added":
+            echo "We have encountered an error. Your product was not added.";
+            break;
+    }
+}

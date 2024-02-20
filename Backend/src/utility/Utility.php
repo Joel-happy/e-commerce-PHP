@@ -2,7 +2,7 @@
 
 namespace Backend\src\utility;
 
-class Utility 
+class Utility
 {
     const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
@@ -46,20 +46,37 @@ class Utility
     }
 
     // Validate username length, redirect to location if not validated
-    public static function validateUsername($location, $username) {
-        if (strlen($username) < 4) 
+    public static function validateUsername($location, $username)
+    {
+        if (strlen($username) < 4)
             Utility::redirectWithMessage($location, "error", "invalid_username");
     }
 
     // validate email, redirect to location if not validated
-    public static function validateEmail($location, $email) {
+    public static function validateEmail($location, $email)
+    {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             Utility::redirectWithMessage($location, "error", "invalid_email");
     }
 
     // Validate password, redirect to location if not validated
-    public static function validatePassword($location, $password) {
+    public static function validatePassword($location, $password)
+    {
         if (!preg_match(self::PASSWORD_REGEX, $password))
             Utility::redirectWithMessage($location, "error", "invalid_password");
+    }
+
+    // Validate string data type, redirect to location if not validated
+    public static function validateStringDataType($location, $value)
+    {
+        if (!is_string($value))
+            Utility::redirectWithMessage($location, "error", "value_not_string");
+    }
+
+    // Validate numeric data type, redirect to location if not validated
+    public static function validateNumericDataType($location, $value)
+    {
+        if (!is_numeric($value))
+            Utility::redirectWithMessage($location, "error", "value_not_numeric");
     }
 }

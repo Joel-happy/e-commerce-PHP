@@ -11,6 +11,7 @@ class Router
         $this->defineViewsRoutes();
         $this->defineAuthRoutes();
         $this->defineUserRoutes();
+        $this->defineProductRoutes();
     }
 
     // Get PDO
@@ -35,6 +36,14 @@ class Router
         return new \Backend\src\controllers\UserController($userModel);
     }
 
+    // Initialize ProductController
+    private function initProductController() {
+        $pdo = $this->getPDO();
+        $productModel = new \Backend\src\models\ProductModel($pdo);
+        return new \Backend\src\controllers\ProductController($productModel);
+    }
+    
+
     // Define routes for normal views
     private function defineViewsRoutes()
     {
@@ -56,6 +65,10 @@ class Router
 
         $this->addRoute('userProfile', function () {
             include('Frontend/views/!userProfile.php');
+        });
+
+        $this->addRoute('addProduct', function() {
+            include('Frontend/views/products/addProduct.php');
         });
     }
 
@@ -96,6 +109,13 @@ class Router
 
         $this->addRoute('userController/updateEmail', function () {
             $this->initUserController()->updateEmail();
+        });
+    }
+
+    // Define routes for the ProductController
+    private function defineProductRoutes() {
+        $this->addRoute('productController/addProduct', function () {
+            $this->initProductController()->addProduct();
         });
     }
 
