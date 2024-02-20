@@ -2,6 +2,8 @@
 
 namespace Backend\src\core;
 
+use Frontend\view\View;
+
 class Router
 {
     private $routes = [];
@@ -48,10 +50,12 @@ class Router
     private function defineViewsRoutes()
     {
         $this->addRoute('', function () {
+            $products = $this->initProductController()->getAllProducts();
             include('Frontend/views/home.php');
         });
 
         $this->addRoute('home', function () {
+            $products = $this->initProductController()->getAllProducts();
             include('Frontend/views/home.php');
         });
 

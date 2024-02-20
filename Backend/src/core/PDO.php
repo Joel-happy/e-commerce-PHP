@@ -36,7 +36,10 @@ class PDO
 
             return $data;
         } catch (\PDOException $e) {
-            error_log('Query failed : ' . $e->getMessage());
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -58,7 +61,10 @@ class PDO
             // Return number of affected rows
             return $stmt->rowCount();
         } catch (\PDOException $e) {
-            error_log('Query failed : ' . $e->getMessage());
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }

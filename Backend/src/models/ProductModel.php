@@ -11,6 +11,30 @@ class ProductModel
         $this->pdo = $pdo;
     }
 
+    // Get all products
+    public function getAllProducts()
+    {
+        try {
+            $query = "SELECT * FROM product";
+
+            $result = $this->pdo->select($query, []);
+
+            // Check if a result has returned
+            if ($result && count($result) > 0) {
+                return $result;
+            } else {
+                // No products found
+                return [];
+            }
+        } catch (\PDOException $e) {
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
+            return false;
+        }
+    }
+
     // Create a product
     public function createProduct($name, $description, $category, $price, $user_id)
     {
@@ -23,11 +47,14 @@ class ProductModel
                 ':price' => $price,
                 ':user_id' => $user_id,
             ];
-    
+
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }

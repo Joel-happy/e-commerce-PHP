@@ -14,6 +14,15 @@ class ProductController
     }
 
     //
+    // Read Product
+    //
+
+    public function getAllProducts() {
+        $products = $this->productModel->getAllProducts();
+        return $products;
+    }
+
+    //
     // Add Product
     //
 

@@ -1,5 +1,7 @@
 <?php
 
+use \Backend\src\core\Router;
+
 session_start();
 
 // Check if session exists
@@ -13,3 +15,16 @@ if (isset($_SESSION['user_id'])) {
     echo '<h4><a href="register">Register</a></h4> <br>';
     echo '<h4><a href="login">Login</a></h4>';
 }
+
+?>
+
+<h3>Product List</h3>
+<ul>
+    <?php if (empty($products)): ?>
+        <li>No products available</li>
+    <?php else: ?>
+        <?php foreach ($products as $product): ?>
+            <li><?php echo $product['name']; ?> - <?php echo $product['price']; ?></li>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</ul>

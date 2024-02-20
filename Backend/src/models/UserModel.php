@@ -26,7 +26,10 @@ class UserModel
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -45,7 +48,10 @@ class UserModel
             $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
             return ($count > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -64,7 +70,10 @@ class UserModel
             $count = ($result && isset($result[0]['count'])) ? $result[0]['count'] : 0;
             return ($count > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -80,7 +89,7 @@ class UserModel
 
             $result = $this->pdo->select($query, $params);
 
-            // Check if a row was returned
+            // Check if a result was returned
             if ($result && count($result) > 0) {
                 $hashedPassword = $result[0]['password'];
 
@@ -103,7 +112,10 @@ class UserModel
                 return null;
             }
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -120,7 +132,10 @@ class UserModel
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -138,7 +153,10 @@ class UserModel
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -157,7 +175,10 @@ class UserModel
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -175,7 +196,10 @@ class UserModel
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
@@ -193,7 +217,10 @@ class UserModel
             $rowCount = $this->pdo->execute($query, $params);
             return ($rowCount > 0);
         } catch (\PDOException $e) {
-            echo "Database error: " . $e->getMessage();
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
             return false;
         }
     }
