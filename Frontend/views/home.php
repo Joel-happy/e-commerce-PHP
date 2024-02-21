@@ -5,7 +5,7 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Y'Store</title>
+    <title>Y'Store-main</title>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
     <link href="Frontend/assets/icones/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
@@ -44,23 +44,7 @@
 </header>
 <main class="bg-warning col-12 container-fluid">
     <nav class="nav_main">
-        <!-- ((TEMP) For testing purposes (TEMP)) -->
-        <?php
-        // Start session
-        session_start();
-
-        // Check if session exists
-        if (isset($_SESSION['user_id'])) {
-            // Session exists, display user information
-            echo '<h4><a href="userProfile">Profile</a></h4>';
-            echo '<h4><a href="authController/logout">Logout</a></h4>';
-        } else {
-            // Session does not exist, display registration and login buttons
-            echo '<h4><a href="register">Register</a></h4> <br>';
-             echo '<h4><a href="login">Login</a></h4>';
-        }
-        ?>
-        <!-- ((TEMP) For testing purposes (TEMP)) -->
+        <?php include('!childHome.php'); ?>
     </nav>
     <aside>
 

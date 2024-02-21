@@ -4,14 +4,12 @@ namespace Backend\src\controllers;
 
 use Backend\src\utility\Utility;
 
-// Start or resume session
 session_start();
 
 class AuthController
 {
-    // Fields
     private $userModel;
-    
+
     public function __construct($userModel)
     {
         $this->userModel = $userModel;
@@ -92,10 +90,11 @@ class AuthController
         $token = Utility::generateToken();
 
         // Call the user model to add the user to the database
-        $rowCount = $this->userModel->createUser($formData['username'], $formData['email'], $formData['password'], $token);
+        $success = $this->userModel->createAccount($formData['username'], $formData['email'], $formData['password'], $token);
 
         // Check if user has been successfully added to the database
-        if ($rowCount > 0) {
+        if ($success) {
+            // If user has been added, sent verification email
             if (Utility::sendVerificationEmail($formData['email'], $token)) {
                 Utility::redirectWithMessage("login", "success", "account_created_successfully");
             } else {
@@ -106,15 +105,15 @@ class AuthController
         }
     }
 
-    // Responsible for processing the verification of user email addresses
-    public function verifyEmail() 
+    // Responsible for processing the verification of an email address
+    public function verifyEmail()
     {
         if (isset($_GET['token'])) {
             // Retrieve token from URL
             $token = $_GET['token'];
-            $status = $this->userModel->updateUserEmailVerificationStatus($token);
-        
-            if ($status) {
+            $success = $this->userModel->updateEmailVerificationStatus($token);
+            
+            if ($success) {
                 Utility::redirectWithMessage("login", "success", "account_verified");
             } else {
                 Utility::redirectWithMessage("register", "error", "invalid_token");
@@ -148,21 +147,22 @@ class AuthController
         ];
     }
 
-    private function validateLoginFormData($formData) 
+    private function validateLoginFormData($formData)
     {
         // Validate email
         Utility::validateEmail("login", $formData['email']);
     }
 
-    private function processLogin($formData) {
+    private function processLogin($formData)
+    {
         $email = $formData['email'];
         $password = $formData['password'];
 
         // Retrieve user data by email and password
-        $userData = $this->userModel->getUserDataByEmailAndPassword($email, $password);
+        $userData = $this->userModel->getUserByEmailAndPassword($email, $password);
 
         // Check if user exists
-        if (!$userData){
+        if (!$userData) {
             Utility::redirectWithMessage("login", "error", "invalid_credentials");
             return false;
         }
@@ -174,7 +174,7 @@ class AuthController
         }
 
         $this->initializeSession($userData);
-        
+
         return true;
     }
 
@@ -208,7 +208,8 @@ class AuthController
     // Handle logout
     //
 
-    public function logout() {
+    public function logout()
+    {
         // Unset all session variables
         $_SESSION = [];
 
