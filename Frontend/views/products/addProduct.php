@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Add product</title>
 </head>
 <body>
   <?php 
@@ -37,7 +37,7 @@
       <input type="submit" value="Add Product">
     </form>
 
-    <!-- Comment this line to test server-side form validation -->
-    <script src="Frontend/js/addProduct.js"></script>
+    <!-- Scripts -->
+    <script src="Frontend/js/product.js"></script>
 </body>
 </html>

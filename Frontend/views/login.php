@@ -36,6 +36,8 @@
     </div>
 
 </header>
+<?php include('_queryMessageHandler.php'); ?>
+
 <main class="container-fluid d-flex justify-content-around align-items-center h-75">
     <section class="">
         <form action="authController/login" method="post" style="width: 23rem;">

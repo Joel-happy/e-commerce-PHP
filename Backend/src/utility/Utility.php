@@ -7,9 +7,15 @@ class Utility
     const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
     // Redirect user to a specific location in the website with a message
-    public static function redirectWithMessage($location, $status, $message)
+    public static function redirectWithMessage($location, $status, $message, $useAmpersand = false)
     {
-        header("Location: ../$location?$status=$message");
+        // Check if the $location already contains a query string
+        $separator = (strpos($location, '?') === false) ? '?' : ($useAmpersand ? '&' : '?');
+    
+        // Append the parameters to the $location
+        $redirectUrl = "../$location" . $separator . "$status=$message";
+    
+        header("Location: $redirectUrl");
         exit();
     }
 

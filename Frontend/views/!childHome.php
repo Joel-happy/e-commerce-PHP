@@ -24,7 +24,7 @@ if (isset($_SESSION['user_id'])) {
         <li>No products available</li>
     <?php else: ?>
         <?php foreach ($products as $product): ?>
-            <li><?php echo $product['name']; ?> - <?php echo $product['price']; ?></li>
+            <li><a href="viewProduct?productId=<?= $product['id']; ?>"><?php echo $product['name']; ?> - <?php echo $product['price']; ?></a></li>
         <?php endforeach; ?>
     <?php endif; ?>
 </ul>

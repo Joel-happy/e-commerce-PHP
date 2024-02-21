@@ -22,6 +22,12 @@ class ProductController
         return $products;
     }
 
+    public function getProductById() {
+        $productId = $_GET['productId'];
+        $product = $this->productModel->getProductById($productId);
+        return $product;
+    }
+
     //
     // Add Product
     //
@@ -40,12 +46,19 @@ class ProductController
 
     private function extractProductFormData()
     {
-        return [
+        $formData = [
             'productName' => $_POST['productName'],
             'productDescription' => $_POST['productDescription'],
             'productCategory' => $_POST['productCategory'],
             'productPrice' => floatval($_POST['productPrice']),
         ];
+     
+        // Check if productId exists in $_POST
+        if (isset($_POST['productId'])) {
+            $formData['productId'] = $_POST['productId'];
+        }
+    
+        return $formData;
     }
 
     private function validateProductFormData($formData)
@@ -85,6 +98,57 @@ class ProductController
             Utility::redirectWithMessage("home", "", "");
         } else {
            Utility::redirectWithMessage("addProduct", "error", "product_not_added");
+        }
+    }
+
+    //
+    // Update Product
+    //
+
+    public function updateProduct() {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $formData = $this->extractProductFormData();
+            if ($this->validateProductFormData($formData)) {
+                $this->processUpdateProduct($formData);
+            }
+        } else {
+            Utility::redirectWithMessage("addProduct", "error", "invalid_request_method");
+        }
+    }
+
+    private function processUpdateProduct($formData) {
+        session_start();
+
+        $productId = $formData['productId'];
+        $productName = $formData['productName'];
+        $productDescription = $formData['productDescription'];
+        $productCategory = $formData['productCategory'];
+        $productPrice = $formData['productPrice'];
+
+        // Call the product model to update a product
+        $success = $this->productModel->updateProduct($productId, $productName, $productDescription, $productCategory, $productPrice, $_SESSION['user_id']);
+
+        if ($success) {
+            Utility::redirectWithMessage("viewProduct?productId=$productId", "success", "product_updated", true);
+        } else {
+           Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_updated", true);
+        }
+    }
+
+    //
+    // Delete Product
+    //
+
+    public function deleteProduct() {
+        session_start();
+
+        $productId = $_GET['productId'];
+        $success = $this->productModel->deleteProduct($productId, $_SESSION['user_id']);
+
+        if ($success) {
+            Utility::redirectWithMessage("home", "", "");
+        } else {
+           Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_deleted");
         }
     }
 }

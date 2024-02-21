@@ -110,3 +110,24 @@ if (isset($_GET['error'])) {
             break;
     }
 }
+
+// viewProduct.php
+if (isset($_GET['success'])) {
+    switch ($_GET['success']) {
+        case "product_updated":
+            echo "Your product information has been updated";
+            break;
+    }
+}
+
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "product_not_deleted":
+            echo "We have encountered an error. Your product was not deleted";
+            break;
+        case "product_not_updated":
+            echo "We have encountered an error. Your product was not updated";
+            break;
+    }
+}
+

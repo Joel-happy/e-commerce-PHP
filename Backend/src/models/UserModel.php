@@ -28,7 +28,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -50,7 +50,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -72,7 +72,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -114,7 +114,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -134,7 +134,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -155,7 +155,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -177,7 +177,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -198,7 +198,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }
@@ -219,7 +219,7 @@ class UserModel
         } catch (\PDOException $e) {
             // Log the error with additional information
             $errorMsg = "Database error: " . $e->getMessage();
-            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
             error_log($errorLog, 3, "error.log");
             return false;
         }

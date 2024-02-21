@@ -74,6 +74,11 @@ class Router
         $this->addRoute('addProduct', function() {
             include('Frontend/views/products/addProduct.php');
         });
+
+        $this->addRoute('viewProduct', function() {
+            $product = $this->initProductController()->getProductById();
+            include('Frontend/views/products/viewProduct.php');
+        });
     }
 
     // Define routes for the AuthController
@@ -120,6 +125,14 @@ class Router
     private function defineProductRoutes() {
         $this->addRoute('productController/addProduct', function () {
             $this->initProductController()->addProduct();
+        });
+
+        $this->addRoute('productController/updateProduct', function () {
+            $this->initProductController()->updateProduct();
+        });
+
+        $this->addRoute('productController/deleteProduct', function () {
+            $this->initProductController()->deleteProduct();
         });
     }
 
