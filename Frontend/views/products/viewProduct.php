@@ -22,13 +22,40 @@
         }
     ?>
 
+    <!-- Product info -->
     <p>Product id : <?= $product['id']; ?></p>
     <p>Product name : <?= $product['name']; ?></p>
     <p>Product description : <?= $product['description']; ?></p>
     <p>Product category: <?= $product['category']; ?></p>
     <p>Product price: <?= $product['price']; ?></p>
-    <!--<p>Product user_id : <?= $product['user_id']; ?></p>-->
+    <!-- End product info -->
 
     <?php include('updateProduct.php'); ?>
+
+    <!-- Add to cart -->
+    <form method="post" action="cartController/addProductToCart">
+        <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
+        
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" oninput="calculateTotal(<?php echo $product['price']; ?>)">
+        
+        <p>Total Price: <span id="displayTotalPrice"><?php echo $product['price']; ?></span></p>
+        <input type="hidden" name="totalPrice" id="totalPrice">
+        
+        <button type="submit" name="add_to_cart">Add to Cart</button>
+    </form> <!-- End add to cart -->
+
+    <!-- Scripts -->
+    <script src="Frontend/js/product.js"></script>
+    
+    <script>
+        // Calculate total amount base on product price and quantity chosen
+        function calculateTotal(price) {
+            var quantity = document.getElementById("quantity").value;
+            var totalPrice = quantity * price;
+            document.getElementById("displayTotalPrice").textContent = totalPrice.toFixed(2);
+            document.getElementById("totalPrice").value = totalPrice.toFixed(2);
+        }
+    </script>
 </body>
 </html>

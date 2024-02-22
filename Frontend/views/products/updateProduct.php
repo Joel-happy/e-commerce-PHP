@@ -30,6 +30,3 @@
         </form>
     </div>
 </div> <!-- End Update Product Modal -->
-
-<!-- Scripts -->
-<script src="Frontend/js/product.js"></script>

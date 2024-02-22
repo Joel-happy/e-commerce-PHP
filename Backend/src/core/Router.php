@@ -14,6 +14,7 @@ class Router
         $this->defineAuthRoutes();
         $this->defineUserRoutes();
         $this->defineProductRoutes();
+        $this->defineCartRoutes();
     }
 
     // Get PDO
@@ -45,6 +46,11 @@ class Router
         return new \Backend\src\controllers\ProductController($productModel);
     }
     
+    private function initCartController() {
+        $pdo = $this->getPDO();
+        $cartModel = new \Backend\src\models\CartModel($pdo);
+        return new \Backend\src\controllers\CartController($cartModel);
+    }
 
     // Define routes for normal views
     private function defineViewsRoutes()
@@ -133,6 +139,13 @@ class Router
 
         $this->addRoute('productController/deleteProduct', function () {
             $this->initProductController()->deleteProduct();
+        });
+    }
+
+    // Define routes for the CartController
+    private function defineCartRoutes() {
+        $this->addRoute('cartController/addProductToCart', function () {
+            $this->initCartController()->addProductToCart();
         });
     }
 
