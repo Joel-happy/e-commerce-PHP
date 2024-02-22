@@ -1,0 +1,6 @@
+[2024-02-20 17:42:17] !childHome.php (line 32): Database error: test log message
+[2024-02-21 18:40:16] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
+[2024-02-21 18:43:01] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
+[2024-02-21 18:49:00] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
+[2024-02-21 18:49:08] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
+[2024-02-21 18:52:59] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
