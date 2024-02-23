@@ -1,0 +1,36 @@
+#header {
+    background-color: #E5DEDC;
+}
+
+
+#navbar .nav-link > {
+    color: #7C84A6;
+}
+
+
+.subscribe-content {
+    background-color: #212966;
+}
+
+.subscribe-content button {
+    background-color: #F4772A;
+    color: #fff;
+}
+
+.subscribe-content button:hover {
+    background-color:#F4772A;
+    color: #212966;
+}
+
+
+#footer {
+    background-color: #7C84A6;
+}
+
+#footer a:hover {
+    color: #212966;
+}
+
+.Shipping p{
+    color: black;
+}
