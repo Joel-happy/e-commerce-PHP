@@ -25,6 +25,12 @@
     <!-- Product info -->
     <p>Product id : <?= $product['id']; ?></p>
     <p>Product name : <?= $product['name']; ?></p>
+
+    <?php if (!empty($product['image'])) : ?>
+        <p>Product image:</p>
+        <img src="Frontend/assets/userImg/<?= $product['image']; ?>" alt="Product Image">
+    <?php endif; ?>
+
     <p>Product description : <?= $product['description']; ?></p>
     <p>Product category: <?= $product['category']; ?></p>
     <p>Product price: <?= $product['price']; ?></p>

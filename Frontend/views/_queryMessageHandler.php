@@ -108,6 +108,15 @@ if (isset($_GET['error'])) {
         case "product_not_added":
             echo "We have encountered an error. Your product was not added.";
             break;
+        case "not_allowed_extension":
+            echo "Invalid file type for an image. Allowed extensions are JPG, JPEG and PNG";
+            break;
+        case "image_size_exceed_max":
+            echo "Your file exceeds the maximum allowed size (5mb)";
+            break;
+        case "image_not_uploaded":
+            echo "We have encountered an error. Your image was not uploaded";
+            break;
     }
 }
 

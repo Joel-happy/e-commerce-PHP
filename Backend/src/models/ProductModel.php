@@ -51,6 +51,7 @@ class ProductModel
                 return [
                     'id' => $result[0]['id'],
                     'name' => $result[0]['name'],
+                    'image' => $result[0]['image'],
                     'description' => $result[0]['description'],
                     'category' => $result[0]['category'],
                     'price' => $result[0]['price'],
@@ -70,12 +71,13 @@ class ProductModel
     }
 
     // Create a product
-    public function createProduct($name, $description, $category, $price, $user_id)
+    public function createProduct($name, $image, $description, $category, $price, $user_id)
     {
         try {
-            $query = "INSERT INTO product(name, description, category, price, user_id) VALUES(:name, :description, :category, :price, :user_id)";
+            $query = "INSERT INTO product(name, image, description, category, price, user_id) VALUES(:name, :image, :description, :category, :price, :user_id)";
             $params = [
                 ':name' => $name,
+                ':image' => $image,
                 ':description' => $description,
                 ':category' => $category,
                 ':price' => $price,
@@ -94,12 +96,13 @@ class ProductModel
     }
 
     // Update a product
-    public function updateProduct($id, $name, $description, $category, $price, $user_id) {
+    public function updateProduct($id, $name, $image, $description, $category, $price, $user_id) {
         try {
-            $query = "UPDATE product SET name=:name, description=:description, category=:category, price=:price WHERE id=:id AND user_id=:user_id";
+            $query = "UPDATE product SET name=:name, image=:image, description=:description, category=:category, price=:price WHERE id=:id AND user_id=:user_id";
             $params = [
                 ':id' => $id,
                 ':name' => $name,
+                ':image' => $image,
                 ':description' => $description,
                 ':category' => $category,
                 ':price' => $price,

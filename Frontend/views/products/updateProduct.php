@@ -3,10 +3,14 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Update Product</h2>
-        <form action="productController/updateProduct" method="post" id="updateProductForm">
+        <form action="productController/updateProduct" method="post" id="updateProductForm" enctype="multipart/form-data">
             <input type="hidden" id="productId" name="productId" value="">
             <label for="productName">Product Name:</label>
             <input type="text" id="productName" name="productName" maxlength="30" placeholder="Nom du produit" required>
+            <br><br>
+
+            <label for="productImage">Product Image:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*">
             <br><br>
 
             <label for="productDescription">Description:</label>

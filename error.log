@@ -4,3 +4,6 @@
 [2024-02-21 18:49:00] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
 [2024-02-21 18:49:08] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
 [2024-02-21 18:52:59] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 unrecognized token: ":"
+[2024-02-23 18:35:13] Utility.php (line 109): Image upload error: 
+[2024-02-23 18:59:36] Utility.php (line 108): Image upload error: 
+2024-02-23 19:03:19] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 near "description": syntax error
