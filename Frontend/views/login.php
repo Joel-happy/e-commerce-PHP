@@ -5,7 +5,7 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Y'store</title>
+    <title>Y'store-login</title>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
     <link href="Frontend/assets/icones/favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
@@ -27,17 +27,16 @@
     <meta content="#ffffff" name="theme-color">
     <link href="Frontend/css/login.css" rel="stylesheet">
 </head>
-<body class="d-flex flex-column">
-
-<?php include('_queryMessageHandler.php'); ?>
-
+<body class=" d-flex flex-column">
 <header class="container-fluid h25 p-0">
     <div class="">
-        <a class="logo" href="home">
+        <a class="logo" href="#">
             <img class="" src="Frontend/assets/icones/Logo.png" alt="logo">
         </a>
     </div>
+
 </header>
+<?php include('_queryMessageHandler.php'); ?>
 
 <main class="container-fluid d-flex justify-content-around align-items-center h-75">
     <section class="">
@@ -62,30 +61,27 @@
         </form>
     </section>
     <section class="carouss">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
+        <div class="carousel-container d-flex align-items-center ">
             <div class="carousel-item active">
-                <img class="d-block w-100 img-fluid" alt="Image 1" src="Frontend/assets/produits/telephone/tel3.jpeg">
+                <img alt="Image 1" src="Frontend/assets/produits/telephone/tel3.jpeg">
+            </div>
+            <div class="carousel-item ">
+                <img alt="Image 2" src="Frontend/assets/produits/casque/casque5.jpeg">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100 img-fluid" alt="Image 2" src="Frontend/assets/produits/casque/casque5.jpeg">
+                <img alt="Image 3" src="Frontend/assets/produits/clavier_souris/cs3.jpeg">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100 img-fluid" alt="Image 3" src="Frontend/assets/produits/clavier_souris/cs3.jpeg">
+                <img alt="Image 3" src="Frontend/assets/produits/casque/casque2.jpg">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100 img-fluid" alt="Image 4" src="Frontend/assets/produits/casque/casque2.jpg">
+                <img alt="Image 3" src="Frontend/assets/produits/clavier_souris/cs5.jpg">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100 img-fluid" alt="Image 5" src="Frontend/assets/produits/clavier_souris/cs5.jpg">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100 img-fluid" alt="Image 6" src="Frontend/assets/produits/telephone/tel4.jpeg">
+                <img alt="Image 3" src="Frontend/assets/produits/telephone/tel4.jpeg">
             </div>
         </div>
-    </div>
-</section>
-
+    </section>
 </main>
 <footer class="container-fluid">
     <section class="section1_footer d-flex justify-content-around m-5">
@@ -148,6 +144,6 @@
         </div>
     </section>
 </footer>
-<script src="Frontend/js/scripts.js"></script>
+<script src="js/scripts.js"></script>
 </body>
 </html>

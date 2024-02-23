@@ -6,7 +6,6 @@ use Backend\src\utility\Utility;
 
 class UserController
 {
-    // Fields
     private $userModel;
 
     public function __construct($userModel)
@@ -15,13 +14,14 @@ class UserController
     }
 
     //
-    // Update username
+    // Update Username
     //
 
-    public function updateUsername() {
+    public function updateUsername()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $formData = $this->extractUserProfileUsernameFormData();
-            if ($this->validateUserProfileUsernameFormData($formData)) {
+            $formData = $this->extractNewUsernameFormData();
+            if ($this->validateNewUsernameFormData($formData)) {
                 $this->processUpdateUsername($formData);
             }
         } else {
@@ -29,13 +29,15 @@ class UserController
         }
     }
 
-    private function extractUserProfileUsernameFormData() {
+    private function extractNewUsernameFormData()
+    {
         return [
             'newUsername' => $_POST['newUsername'],
         ];
     }
 
-    private function validateUserProfileUsernameFormData($formData) {
+    private function validateNewUsernameFormData($formData)
+    {
         $newUsername = $formData['newUsername'];
 
         // Validate username length
@@ -53,16 +55,17 @@ class UserController
         return true;
     }
 
-    private function processUpdateUsername($formData) {
+    private function processUpdateUsername($formData)
+    {
         session_start();
 
         // Call the user model to update user's username
-        $status = $this->userModel->updateUserUsername($formData['newUsername'], $_SESSION['user_id']);
+        $success = $this->userModel->updateUsername($formData['newUsername'], $_SESSION['user_id']);
 
-        if ($status) {
+        if ($success) {
             // Update user's username inside current session
             $_SESSION['username'] = $formData['newUsername'];
-            
+
             Utility::redirectWithMessage("userProfile", "success", "username_updated");
         } else {
             Utility::redirectWithMessage("userProfile", "error", "username_not_updated");
@@ -73,24 +76,27 @@ class UserController
     // Update email
     // 
 
-    public function sendEmailToUpdate() {
+    public function sendEmailToUpdate()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $formData = $this->extractUserProfileEmailFormData();
-            if ($this->validateUserProfileEmailFormData($formData)) {
-                $this->processUpdateEmail($formData);
+            $formData = $this->extractEmailFormData();
+            if ($this->validateEmailFormData($formData)) {
+                $this->processSendEmailToUpdate($formData);
             }
         } else {
             Utility::redirectWithMessage("userProfile", "error", "invalid_request_method");
         }
     }
 
-    private function extractUserProfileEmailFormData() {
+    private function extractEmailFormData()
+    {
         return [
             'newEmail' => $_POST['newEmail'],
         ];
     }
 
-    private function validateUserProfileEmailFormData($formData) {
+    private function validateEmailFormData($formData)
+    {
         $newEmail = $formData['newEmail'];
 
         // Validate email
@@ -105,15 +111,18 @@ class UserController
         return true;
     }
 
-    private function processUpdateEmail($formData) 
+    private function processSendEmailToUpdate($formData)
     {
         session_start();
 
         $token = Utility::generateToken();
-        $status = $this->userModel->updateToken($token, $_SESSION['user_id']);
-        
-        if ($status) {
-            if (Utility::sendUpdateEmailVerification($formData['newEmail'], $token)) {
+        // Call the user model to update user's verification mail token
+        $success = $this->userModel->updateEmailVerificationToken($token, $_SESSION['user_id']);
+
+        // If token has been updated
+        if ($success) {
+            // Send verification email to verify new email address
+            if (Utility::sendVerificationEmail($formData['newEmail'], $token, true)) {
                 Utility::redirectWithMessage("userProfile", "success", "email_sent_for_update");
             } else {
                 Utility::redirectWithMessage("userProfile", "error", "email_not_sent");
@@ -122,15 +131,16 @@ class UserController
             Utility::redirectWithMessage("userProfile", "error", "email_not_sent");
         }
     }
-    
-    public function updateEmail() {
+
+    public function updateEmail()
+    {
         session_start();
 
         if (isset($_GET['token']) && isset($_GET['newEmail'])) {
             $token = $_GET['token'];
             $newEmail = $_GET['newEmail'];
-            $status = $this->userModel->updateUserEmail($newEmail, $token, $_SESSION['user_id']);
-        
+            $status = $this->userModel->updateEmail($newEmail, $token, $_SESSION['user_id']);
+
             if ($status) {
                 // Update user's email inside current session
                 $_SESSION['email'] = $newEmail;
@@ -145,13 +155,14 @@ class UserController
     }
 
     //
-    // Update password
+    // Update Password
     // 
 
-    public function updatePassword() {
+    public function updatePassword()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $formData = $this->extractUserProfilePasswordFormData();
-            if ($this->validateUserProfilePasswordFormData($formData)) {
+            $formData = $this->extractNewPasswordFormData();
+            if ($this->validateNewPasswordFormData($formData)) {
                 $this->processUpdatePassword($formData);
             }
         } else {
@@ -159,22 +170,24 @@ class UserController
         }
     }
 
-    private function extractUserProfilePasswordFormData() {
+    private function extractNewPasswordFormData()
+    {
         return [
             'newPassword' => $_POST['newPassword'],
-            'newPasswordConfirm' => $_POST['newPasswordConfirm'],
+            'newConfirmPassword' => $_POST['newConfirmPassword'],
         ];
     }
 
-    private function validateUserProfilePasswordFormData($formData) {
+    private function validateNewPasswordFormData($formData)
+    {
         $newPassword = $formData['newPassword'];
-        $newPasswordConfirm = $formData['newPasswordConfirm'];
+        $newConfirmPassword = $formData['newConfirmPassword'];
 
         // Validate password
         Utility::validatePassword("userProfile", $newPassword);
 
         // Matching passwords
-        if ($newPassword != $newPasswordConfirm) {
+        if ($newPassword != $newConfirmPassword) {
             Utility::redirectWithMessage("userProfile", "error", "not_matching_passwords");
             return false;
         }
@@ -182,16 +195,17 @@ class UserController
         return true;
     }
 
-    private function processUpdatePassword($formData) {
+    private function processUpdatePassword($formData)
+    {
         session_start();
 
         // Hash password
-        $formData['newPassword'] = password_hash($formData['newPassword'], PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($formData['newPassword'], PASSWORD_DEFAULT);
 
-        // Call the user model to update user's username
-        $status = $this->userModel->updatePassword($formData['newPassword'], $_SESSION['user_id']);
+        // Call the user model to update user's password
+        $success = $this->userModel->updatePassword($hashedPassword, $_SESSION['user_id']);
 
-        if ($status) {            
+        if ($success) {
             Utility::redirectWithMessage("userProfile", "success", "password_updated");
         } else {
             Utility::redirectWithMessage("userProfile", "error", "password_not_updated");

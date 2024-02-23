@@ -2,15 +2,20 @@
 
 namespace Backend\src\utility;
 
-class Utility {
-
-    // Constants
+class Utility
+{
     const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
     // Redirect user to a specific location in the website with a message
-    public static function redirectWithMessage($location, $status, $message)
+    public static function redirectWithMessage($location, $status, $message, $useAmpersand = false)
     {
-        header("Location: ../$location?$status=$message");
+        // Check if the $location already contains a query string
+        $separator = (strpos($location, '?') === false) ? '?' : ($useAmpersand ? '&' : '?');
+    
+        // Append the parameters to the $location
+        $redirectUrl = "../$location" . $separator . "$status=$message";
+    
+        header("Location: $redirectUrl");
         exit();
     }
 
@@ -21,12 +26,17 @@ class Utility {
     }
 
     // Send verification email
-    public static function sendVerificationEmail($to, $token)
+    public static function sendVerificationEmail($to, $token, $update = false)
     {
         // Set up email content
         $subject = "Account activation";
-        $message = "Thank you for registering. Click the link below to activate your account:\n\n";
-        $message .= "http://localhost/e-commerce-PHP/authController/verifyEmail?token=" . urlencode($token);
+        $message = $update ? "Click the link below to verify your new email address:\n\n" : "Thank you for registering. Click the link below to activate your account:\n\n";
+        $message .= "http://localhost/e-commerce-PHP/";
+        $message .= $update ? "userController/updateEmail?" : "authController/verifyEmail?";
+        $message .= "token=" . urlencode($token);
+        if ($update) {
+            $message .= "&newEmail=" . urlencode($to);
+        }
 
         // Additional headers
         $headers = "From: dontReplyPlease@localhost\r\n";
@@ -41,44 +51,38 @@ class Utility {
         }
     }
 
-    
-    // Send verification email
-    public static function sendUpdateEmailVerification($to, $token)
+    // Validate username length, redirect to location if not validated
+    public static function validateUsername($location, $username)
     {
-        // Set up email content
-        $subject = "Account activation";
-        $message = "Click the link below to activate verify your email address:\n\n";
-        $message .= "http://localhost/e-commerce-PHP/userController/updateEmail?token=" . urlencode($token) . "&newEmail=" . urlencode($to);
-
-        // Additional headers
-        $headers = "From: dontReplyPlease@localhost\r\n";
-        $headers .= "Reply-To: dontReplyPlease@localhost\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-        // Send the email
-        if (mail($to, $subject, $message, $headers)) {
-            return true;
-        } else {
-            return false;
-        }
+        if (strlen($username) < 4)
+            Utility::redirectWithMessage($location, "error", "invalid_username");
     }
 
-    // Validate form username length
-    public static function validateUsername($location, $username) {
-        if (strlen($username) < 4) Utility::redirectWithMessage($location, "error", "invalid_username");
-    }
-
-    // validate form email
-    public static function validateEmail($location, $email) {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // validate email, redirect to location if not validated
+    public static function validateEmail($location, $email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             Utility::redirectWithMessage($location, "error", "invalid_email");
-        }
     }
 
-    // Validate form password
-    public static function validatePassword($location, $password) {
-        if (!preg_match(self::PASSWORD_REGEX, $password)) {
+    // Validate password, redirect to location if not validated
+    public static function validatePassword($location, $password)
+    {
+        if (!preg_match(self::PASSWORD_REGEX, $password))
             Utility::redirectWithMessage($location, "error", "invalid_password");
-        }
+    }
+
+    // Validate string data type, redirect to location if not validated
+    public static function validateStringDataType($location, $value)
+    {
+        if (!is_string($value))
+            Utility::redirectWithMessage($location, "error", "value_not_string");
+    }
+
+    // Validate numeric data type, redirect to location if not validated
+    public static function validateNumericDataType($location, $value)
+    {
+        if (!is_numeric($value))
+            Utility::redirectWithMessage($location, "error", "value_not_numeric");
     }
 }

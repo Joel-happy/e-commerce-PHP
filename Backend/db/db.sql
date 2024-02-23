@@ -7,3 +7,13 @@ CREATE TABLE IF NOT EXISTS account (
     admin TINYINT NOT NULL DEFAULT 0,
     token VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS product (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2),
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES account(id)
+);
