@@ -115,10 +115,14 @@ if (isset($_GET['error'])) {
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
         case "product_updated":
-            echo "Your product information has been updated";
+            echo "Your product information has been updated.";
+            break;
+        case "product_added_to_cart":
+            echo "The product has been added to cart.";
             break;
     }
 }
+
 
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
@@ -128,6 +132,11 @@ if (isset($_GET['error'])) {
         case "product_not_updated":
             echo "We have encountered an error. Your product was not updated";
             break;
+        case "product_already_added":
+            echo "The product has already been added to cart";
+            break;
+        case "product_not_added_to_cart":
+            echo "We have encountered an error. Your product was not added to the cart.";
+            break;
     }
 }
-
