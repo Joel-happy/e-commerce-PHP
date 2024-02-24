@@ -11,6 +11,35 @@ class CartModel
         $this->pdo = $pdo;
     }
 
+    // Get all products from cart for a specific user
+    public function getProductsFromCart($userId) {
+        try {
+            $query = "SELECT cart.*, product.*
+                    FROM cart
+                    INNER JOIN product ON cart.product_id=product.id
+                    WHERE cart.user_id=:user_id";
+            $params = [
+                ':user_id' => $userId,
+            ];
+
+            $result = $this->pdo->select($query, $params);
+
+            // Check if a result has been returned
+            if ($result && count($result) > 0) {
+                return $result;
+            } else {
+                // No products found
+                return [];
+            }
+        } catch (\PDOException $e) {
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
+            error_log($errorLog, 3, "error.log");
+            return false;
+        }
+    }
+
     // Check if product has already been added to cart
     public function isProductAlreadyInCart($userId, $productId) {
         try {

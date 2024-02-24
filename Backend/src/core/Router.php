@@ -85,10 +85,6 @@ class Router
             $product = $this->initProductController()->getProductById();
             include('Frontend/views/products/viewProduct.php');
         });
-
-        $this->addRoute('cart', function() {
-            include('Frontend/views/cart.php');
-        });
     }
 
     // Define routes for the AuthController
@@ -148,6 +144,11 @@ class Router
 
     // Define routes for the CartController
     private function defineCartRoutes() {
+        $this->addRoute('cart', function() {
+            $products = $this->initCartController()->getProductsFromCart();
+            include('Frontend/views/cart.php');
+        });
+        
         $this->addRoute('cartController/addProductToCart', function () {
             $this->initCartController()->addProductToCart();
         });

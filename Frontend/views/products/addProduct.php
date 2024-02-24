@@ -19,7 +19,7 @@
       <br><br> 
       
       <label for="productImage">Product Image:</label>
-      <input type="file" id="productImage" name="productImage" accept="image/*">
+      <input type="file" id="productImage" name="productImage" accept="image/*" required>
       <br><br>
 
       <label for="productDescription">Description:</label>

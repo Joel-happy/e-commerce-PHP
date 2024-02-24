@@ -14,6 +14,17 @@ class CartController
     }
 
     //
+    // Get products from cart
+    //
+
+    public function getProductsFromCart() {
+        session_start();
+
+        $products = $this->cartModel->getProductsFromCart($_SESSION['user_id']);
+        return $products;
+    }
+
+    //
     // Add Product to Cart
     //
 

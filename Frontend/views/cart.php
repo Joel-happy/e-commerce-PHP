@@ -28,6 +28,15 @@
   <link rel="stylesheet" href="Frontend/css/cart.css">
 </head>
 <body>
+<?php
+foreach ($products as $row) {
+  echo "name : " . $row['name'] . "<br>";
+  echo "image : " . $row['image'] . "<br>";
+  echo "category : " . $row['category'] . "<br>";
+  echo "quantity : " . $row['quantity'] . "<br>";
+  echo "total price : " . $row['total_price'] . "<br>";
+}
+?>
 <section class="h-100 h-custom" style="background-color: #d2c9ff;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -146,7 +155,7 @@
                   <hr class="my-4">
 
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="#!" class="text-body"><i
+                    <h6 class="mb-0"><a href="home" class="text-body"><i
                           class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                   </div>
                 </div>

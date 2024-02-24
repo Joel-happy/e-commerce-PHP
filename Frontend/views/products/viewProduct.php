@@ -14,7 +14,6 @@
     ?>
 
     <!-- Product info -->
-    <p>Product id : <?= $productId; ?></p>
     <p>Product name : <?= $productName; ?></p>
 
     <?php if (!empty($productImage)) : ?>
