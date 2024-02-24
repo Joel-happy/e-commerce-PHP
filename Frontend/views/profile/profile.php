@@ -73,6 +73,7 @@
               <br>
               <div>
                 <?php include('updateInfo.php'); ?>
+                <?php include('orderHistory.php'); ?>
               </div>
             </div>
           </div>
@@ -80,8 +81,6 @@
       </div>
     </div>
   </section>
-
-  
 
   <!-- Comment this line to test server-side form validation -->
   <script src="Frontend/js/profile.js"></script>

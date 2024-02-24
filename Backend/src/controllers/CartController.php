@@ -121,7 +121,7 @@ class CartController
         // Call the cart model to record purchase history
         $success = $this->cartModel->recordPurchaseHistory($userId, $currentDate);
 
-        if (!$success) {
+        if (!$success) { 
             Utility::redirectWithMessage("cart", "error", "record_purchase_products_fail");
         }
 
@@ -132,6 +132,6 @@ class CartController
             Utility::redirectWithMessage("cart", "error", "remove_products_cart_fail");
         }
 
-        Utility::redirectWithMessage("home", "", "");
+        Utility::redirectWithMessage("profile", "", "");
     }
 }

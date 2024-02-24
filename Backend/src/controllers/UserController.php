@@ -211,4 +211,16 @@ class UserController
             Utility::redirectWithMessage("userProfile", "error", "password_not_updated");
         }
     }
+
+    //
+    // Display Order History
+    //
+
+    public function getOrderHistoryData() {
+        session_start();
+        $userId = $_SESSION['user_id'];
+
+        $orderHistoryData = $this->userModel->fetchOrderHistoryData($userId);
+        return $orderHistoryData;
+    }
 }

@@ -74,6 +74,7 @@ class Router
         });
 
         $this->addRoute('profile', function () {
+            $orderHistoryData = $this->initUserController()->getOrderHistoryData();
             include('Frontend/views/profile/profile.php');
         });
 
@@ -84,6 +85,11 @@ class Router
         $this->addRoute('viewProduct', function() {
             $product = $this->initProductController()->getProductById();
             include('Frontend/views/products/viewProduct.php');
+        });
+
+        $this->addRoute('cart', function() {
+            $products = $this->initCartController()->getProductsFromCart();
+            include('Frontend/views/cart.php');
         });
     }
 
@@ -144,11 +150,6 @@ class Router
 
     // Define routes for the CartController
     private function defineCartRoutes() {
-        $this->addRoute('cart', function() {
-            $products = $this->initCartController()->getProductsFromCart();
-            include('Frontend/views/cart.php');
-        });
-        
         $this->addRoute('cartController/addProductToCart', function () {
             $this->initCartController()->addProductToCart();
         });

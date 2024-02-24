@@ -6,7 +6,7 @@
     <input type="number" id="quantity" name="quantity" value="1" min="1" oninput="calculateTotal(<?php echo $productPrice; ?>)">
 
     <p>Total Price: <span id="displayTotalPrice"><?php echo $productPrice; ?></span></p>
-    <input type="hidden" name="totalPrice" id="totalPrice">
+    <input type="hidden" value="<?php echo $productPrice; ?>" name="totalPrice" id="totalPrice">
 
     <button type="submit" name="add_to_cart">Add to Cart</button>
 </form> <!-- End add to cart -->
