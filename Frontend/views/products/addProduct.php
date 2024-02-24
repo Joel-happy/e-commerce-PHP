@@ -12,10 +12,11 @@
     ?>
 
     <h2>Add Product</h2>
+    <!-- Add product form -->
     <form action="productController/addProduct" method="post" id="addProductForm" enctype="multipart/form-data">
       <label for="productName">Product Name:</label>
       <input type="text" id="productName" name="productName" maxlength="30" placeholder="Nom du produit" required>
-      <br><br>
+      <br><br> 
       
       <label for="productImage">Product Image:</label>
       <input type="file" id="productImage" name="productImage" accept="image/*">
@@ -34,13 +35,12 @@
       </select>
       <br><br>
       
-      
       <label for="productPrice">Product Price:</label>
       <input type="text" id="productPrice" name="productPrice" min="1" oninput="validatePrice(this)" placeholder="Entrez un prix (ex: 10.99)" required>
       <br><br>
       
       <input type="submit" value="Add Product">
-    </form>
+    </form> <!-- End add product form -->
 
     <!-- Scripts -->
     <script src="Frontend/js/product.js"></script>

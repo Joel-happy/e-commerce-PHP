@@ -57,24 +57,24 @@ class Router
     {
         $this->addRoute('', function () {
             $products = $this->initProductController()->getAllProducts();
-            include('Frontend/views/home.php');
+            include('Frontend/views/home/home.php');
         });
 
         $this->addRoute('home', function () {
             $products = $this->initProductController()->getAllProducts();
-            include('Frontend/views/home.php');
+            include('Frontend/views/home/home.php');
         });
 
         $this->addRoute('register', function () {
-            include('Frontend/views/register.php');
+            include('Frontend/views/authentication/register.php');
         });
 
         $this->addRoute('login', function () {
-            include('Frontend/views/login.php');
+            include('Frontend/views/authentication/login.php');
         });
 
-        $this->addRoute('userProfile', function () {
-            include('Frontend/views/!userProfile.php');
+        $this->addRoute('profile', function () {
+            include('Frontend/views/profile/profile.php');
         });
 
         $this->addRoute('addProduct', function() {
@@ -84,6 +84,10 @@ class Router
         $this->addRoute('viewProduct', function() {
             $product = $this->initProductController()->getProductById();
             include('Frontend/views/products/viewProduct.php');
+        });
+
+        $this->addRoute('cart', function() {
+            include('Frontend/views/cart.php');
         });
     }
 

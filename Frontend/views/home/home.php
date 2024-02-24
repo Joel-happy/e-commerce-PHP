@@ -44,7 +44,7 @@
 </header>
 <main class="bg-warning col-12 container-fluid">
     <nav class="nav_main">
-        <?php include('!childHome.php'); ?>
+        <?php include('showProducts.php'); ?>
     </nav>
     <aside>
 

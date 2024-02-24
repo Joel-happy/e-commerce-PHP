@@ -30,13 +30,13 @@
 <body class=" d-flex flex-column">
 <header class="container-fluid h25 p-0">
     <div class="">
-        <a class="logo" href="#">
+        <a class="logo" href="home">
             <img class="" src="Frontend/assets/icones/Logo.png" alt="logo">
         </a>
     </div>
 
 </header>
-<?php include('_queryMessageHandler.php'); ?>
+<?php include('Frontend/views/_queryMessageHandler.php'); ?>
 
 <main class="container-fluid d-flex justify-content-around align-items-center h-75">
     <section class="">
@@ -51,13 +51,13 @@
                 <label class="form-label" for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" class="form-control form-control-lg" required />
               </div>
-  
+
               <div class="pt-1 mb-4">
                 <input class="btn btn-info btn-lg btn-block" type="submit" value="Se connecter" />
               </div>
 
-            <p class="small mb-5 pb-lg-2"><a class="link" href="#">Mot de passe oublié ?</a></p>
             <p>Vous n'avez pas encore de compte ? <a class="link inscription" href="register">Inscrivez vous</a></p>
+            </div>
         </form>
     </section>
     <section class="carouss">
@@ -144,6 +144,6 @@
         </div>
     </section>
 </footer>
-<script src="js/scripts.js"></script>
+<script src="Frontend/js/scripts.js"></script>
 </body>
 </html>
