@@ -29,9 +29,9 @@
       <label for="productCategory">Category:</label>
       <select id="productCategory" name="productCategory" required>
         <option value="" disabled selected>Selectionnez une catégorie</option>
-        <option value="telephone">Téléphone</option>
-        <option value="casque">Casque</option>
-        <option value="ordinateur">Ordinateur</option>
+        <option value="Téléphone">Téléphone</option>
+        <option value="Casque">Casque</option>
+        <option value="Ordinateur">Ordinateur</option>
       </select>
       <br><br>
       

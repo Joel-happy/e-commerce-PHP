@@ -83,4 +83,24 @@ class CartModel
             return false;
         }
     }
+
+    // Remove product from cart 
+    public function removeProductFromCart($userId, $productId) {
+        try {
+            $query = "DELETE FROM cart WHERE product_id=:product_id AND user_id=:user_id";
+            $params = [
+                ':user_id' => $userId,
+                ':product_id' => $productId,
+            ];
+
+            $rowCount = $this->pdo->execute($query, $params);
+            return ($rowCount > 0);
+        } catch (\PDOException $e) {
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
+            error_log($errorLog, 3, "error.log");
+            return false;
+        }
+    }
 }

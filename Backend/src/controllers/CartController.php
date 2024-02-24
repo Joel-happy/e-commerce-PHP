@@ -17,7 +17,8 @@ class CartController
     // Get products from cart
     //
 
-    public function getProductsFromCart() {
+    public function getProductsFromCart()
+    {
         session_start();
 
         $products = $this->cartModel->getProductsFromCart($_SESSION['user_id']);
@@ -28,19 +29,21 @@ class CartController
     // Add Product to Cart
     //
 
-    public function addProductToCart() {
+    public function addProductToCart()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $formData = $this->extractAddProductCartFormData();
             if ($this->validateAddProductToCartFormData($formData)) {
                 $this->processAddProductCart($formData);
             }
         } else {
-            $productId = isset($_POST['productId']) ? urlencode($_POST['productId']) : ''; 
+            $productId = isset($_POST['productId']) ? urlencode($_POST['productId']) : '';
             Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "invalid_request_method", true);
         }
     }
 
-    private function extractAddProductCartFormData() {
+    private function extractAddProductCartFormData()
+    {
         return [
             'productId' => $_POST['productId'],
             'quantity' => $_POST['quantity'],
@@ -48,7 +51,8 @@ class CartController
         ];
     }
 
-    private function validateAddProductToCartFormData($formData) {
+    private function validateAddProductToCartFormData($formData)
+    {
         session_start();
 
         $productId = $formData['productId'];
@@ -56,14 +60,15 @@ class CartController
 
         // Check if product has already been added to the cart
         if ($this->cartModel->isProductAlreadyInCart($userId, $productId)) {
-           Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_already_added", true);
-           return false;
+            Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_already_added", true);
+            return false;
         }
 
         return true;
     }
 
-    private function processAddProductCart($formData) {
+    private function processAddProductCart($formData)
+    {
         session_start();
 
         $userId = $_SESSION['user_id'];
@@ -79,5 +84,34 @@ class CartController
         } else {
             Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_added_to_cart", true);
         }
+    }
+
+    // 
+    // Remove product from cart
+    //
+
+    public function removeProductFromCart()
+    {
+        session_start();
+
+        $productId = $_GET['productId'];
+        $userId = $_SESSION['user_id'];
+
+        // Call the cart model to add product to cart
+        $success = $this->cartModel->removeProductFromCart($userId, $productId);
+
+        if ($success) {
+            Utility::redirectWithMessage("cart", "success", "product_removed_from_cart");
+        } else {
+            Utility::redirectWithMessage("cart", "error", "product_not_removed_from_cart");
+        }
+    }
+
+    //
+    // Checkout
+    //
+
+    public function checkout() {
+        
     }
 }

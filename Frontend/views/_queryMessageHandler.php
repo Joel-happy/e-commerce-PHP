@@ -149,3 +149,16 @@ if (isset($_GET['error'])) {
             break;
     }
 }
+
+
+// cart.php
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "product_removed_from_cart":
+            echo "The chosen product has been removed.";
+            break;
+        case "product_not_removed_from_cart":
+            echo "We have encountered an error. The product was not removed.";
+            break;
+    }
+}

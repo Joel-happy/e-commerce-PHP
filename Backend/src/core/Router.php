@@ -152,6 +152,10 @@ class Router
         $this->addRoute('cartController/addProductToCart', function () {
             $this->initCartController()->addProductToCart();
         });
+
+        $this->addRoute('cartController/removeProductFromCart', function () {
+            $this->initCartController()->removeProductFromCart();
+        });
     }
 
     // Add routes to array
