@@ -28,3 +28,12 @@ CREATE TABLE IF NOT EXISTS cart (
     FOREIGN KEY (user_id) REFERENCES account(id),
     FOREIGN KEY (product_id) REFERENCES product(id)
 );
+
+CREATE TABLE IF NOT EXISTS order_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    date DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES account(id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);

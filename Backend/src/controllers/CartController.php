@@ -21,7 +21,7 @@ class CartController
     {
         session_start();
 
-        $products = $this->cartModel->getProductsFromCart($_SESSION['user_id']);
+        $products = $this->cartModel->getProductsFromCartFromUser($_SESSION['user_id']);
         return $products;
     }
 
@@ -111,7 +111,27 @@ class CartController
     // Checkout
     //
 
-    public function checkout() {
-        
+    public function checkout()
+    {
+        session_start();
+
+        $userId = $_SESSION['user_id'];
+        $currentDate = date('Y-m-d');
+
+        // Call the cart model to record purchase history
+        $success = $this->cartModel->recordPurchaseHistory($userId, $currentDate);
+
+        if (!$success) {
+            Utility::redirectWithMessage("cart", "error", "record_purchase_products_fail");
+        }
+
+        // Call the cart model to remove all products from cart
+        $success = $this->cartModel->removeAllProductsFromCart($userId);
+
+        if (!$success) {
+            Utility::redirectWithMessage("cart", "error", "remove_products_cart_fail");
+        }
+
+        Utility::redirectWithMessage("home", "", "");
     }
 }

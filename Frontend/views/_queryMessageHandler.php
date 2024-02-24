@@ -160,5 +160,11 @@ if (isset($_GET['error'])) {
         case "product_not_removed_from_cart":
             echo "We have encountered an error. The product was not removed.";
             break;
+        case "record_purchase_products_fail":
+            echo "We have encountered an error. Your purchased history was not updated with the latest purchase";
+            break;
+        case "remove_products_cart_fail":
+            echo "We have encountered an error. The cart products have not been removed.";
+            break;
     }
 }
