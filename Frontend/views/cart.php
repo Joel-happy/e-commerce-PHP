@@ -29,7 +29,21 @@
 </head>
 
 <body>
-  <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+  <?php
+  include('Frontend/views/_notLoggedIn.php');
+  ?>
+
+  <?php
+  $totalAmount = 0;
+  $nbItems = 0;
+
+  foreach ($products as $product) :
+    $totalAmount += $product['total_price'];;
+    $nbItems += 1;
+  endforeach;
+  ?>
+
+  <section class="h-custom">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
@@ -40,18 +54,16 @@
                   <div class="p-5">
                     <div class="d-flex justify-content-between align-items-center mb-5">
                       <h1 class="fw-bold mb-0 text-black">Panier</h1>
+                      <h6 class="mb-0 text-muted" id="total_articles"><?php echo $nbItems; ?> articles</h6>
                     </div>
 
-                    <?php $totalAmount = 0;
+                    <?php
                     foreach ($products as $product) :
                       $productName = $product['name'];
                       $productImage = $product['image'];
                       $productCategory = $product['category'];
                       $productQuantity = $product['quantity'];
                       $productTotalPrice = $product['total_price'];
-
-                      // Increment total amount by the total price of each product
-                      $totalAmount += $productTotalPrice;
                     ?>
                       <?php
                       echo '<hr class="my-4">';
@@ -94,7 +106,7 @@
                     <hr class="my-4">
 
                     <div class="d-flex justify-content-between mb-4">
-                      <h5 class="text-uppercase">items</h5>
+                      <h5 class="text-uppercase">items <?php echo $nbItems; ?></h5>
                       <h5>€ <?php echo number_format($totalAmount, 2); ?></h5>
                     </div>
 

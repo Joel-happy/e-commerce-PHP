@@ -45,7 +45,7 @@
             <div class="card-body p-4">
               <div class="d-flex text-black">
                 <div class="flex-shrink-0">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+                  <img src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                 </div>
                 <div class="flex-grow-1 ms-3">
                   <h5 class="mb-1">Danny McLoan</h5>

@@ -5,17 +5,15 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Product ID</th>
             <th>Product Name</th>
             <th>Date Purchased</th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($orderHistoryData as $element) { ?>
+          <?php foreach ($orderHistoryData as $product) { ?>
             <tr>
-              <td><?php echo $element['product_id']; ?></td>
-              <td><a href="viewProduct?productId=<?php echo $element['product_id']; ?>"><?php echo $element['name']; ?></a></td>
-              <td><?php echo $element['date']; ?></td>
+              <td><a href="viewProduct?productId=<?php echo $product['product_id']; ?>"><?php echo $product['name']; ?></a></td>
+              <td><?php echo $product['date']; ?></td>
             </tr>
           <?php } ?>
         </tbody>
