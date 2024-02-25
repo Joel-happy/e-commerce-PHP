@@ -8,4 +8,5 @@
 [2024-02-23 18:59:36] Utility.php (line 108): Image upload error: 
 2024-02-23 19:03:19] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 1 near "description": syntax error
 [2024-02-24 14:00:28] PDO.php (line 66): Database error: SQLSTATE[HY000]: General error: 5 database is locked
-[2024-02-24 17:28:11] Utility.php (line 108): Image upload error: [2024-02-24 17:28:21] Utility.php (line 108): Image upload error: 
+[2024-02-24 17:28:11] Utility.php (line 108): Image upload error: [2024-02-24 17:28:21] Utility.php (line 108): Image upload error: [2024-02-25 18:33:22] PDO.php (line 66): Database error: SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: cart.user_id
+[2024-02-25 19:22:19] Utility.php (line 108): Image upload error: 

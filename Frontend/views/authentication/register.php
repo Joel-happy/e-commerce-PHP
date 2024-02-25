@@ -49,6 +49,10 @@
                         <label class="form-label" for="email">Email:</label> <br>
                         <input class="form-control form-control-lg" type="email" id="email" name="email" required> <br>
                     </div>
+
+                    <div class="pt-1 mb-4">
+                        <p>Avez-vous déjà un compte ? <a class="link inscription" href="login">Connectez-vous</a></p>
+                    </div>
             </div>
 
             <div class="col-lg-6">
@@ -61,6 +65,7 @@
                     <label class="form-label" for="confirmPassword">Confirm Password:</label> <br>
                     <input class="form-control form-control-lg" type="password" id="confirmPassword" name="confirmPassword" required> <br>
                 </div>
+            </div>
             </div>
             <div class="pt-1 mb-4 col-lg-12">
                 <input class="btn btn-info btn-lg btn-block" type="submit" value="S'inscrire" />

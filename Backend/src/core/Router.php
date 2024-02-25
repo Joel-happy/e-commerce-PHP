@@ -2,7 +2,7 @@
 
 namespace Backend\src\core;
 
-use Frontend\view\View;
+use Backend\src\utility\Utility;
 
 class Router
 {
@@ -40,13 +40,15 @@ class Router
     }
 
     // Initialize ProductController
-    private function initProductController() {
+    private function initProductController()
+    {
         $pdo = $this->getPDO();
         $productModel = new \Backend\src\models\ProductModel($pdo);
         return new \Backend\src\controllers\ProductController($productModel);
     }
-    
-    private function initCartController() {
+
+    private function initCartController()
+    {
         $pdo = $this->getPDO();
         $cartModel = new \Backend\src\models\CartModel($pdo);
         return new \Backend\src\controllers\CartController($cartModel);
@@ -78,16 +80,16 @@ class Router
             include('Frontend/views/profile/profile.php');
         });
 
-        $this->addRoute('addProduct', function() {
+        $this->addRoute('addProduct', function () {
             include('Frontend/views/products/addProduct.php');
         });
 
-        $this->addRoute('viewProduct', function() {
+        $this->addRoute('viewProduct', function () {
             $product = $this->initProductController()->getProductById();
             include('Frontend/views/products/viewProduct.php');
         });
 
-        $this->addRoute('cart', function() {
+        $this->addRoute('cart', function () {
             $products = $this->initCartController()->getProductsFromCart();
             include('Frontend/views/cart.php');
         });
@@ -134,7 +136,8 @@ class Router
     }
 
     // Define routes for the ProductController
-    private function defineProductRoutes() {
+    private function defineProductRoutes()
+    {
         $this->addRoute('productController/addProduct', function () {
             $this->initProductController()->addProduct();
         });
@@ -149,7 +152,8 @@ class Router
     }
 
     // Define routes for the CartController
-    private function defineCartRoutes() {
+    private function defineCartRoutes()
+    {
         $this->addRoute('cartController/addProductToCart', function () {
             $this->initCartController()->addProductToCart();
         });
