@@ -85,7 +85,7 @@
                       echo '</button>';
                       echo '</div>';
                       echo '<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">';
-                      echo '<h6 class="mb-0">€ ' . $productTotalPrice . '</h6>';
+                      echo '<h6 class="mb-0">' . $productTotalPrice . ' €</h6>';
                       echo '</div>';
                       echo '<div class="col-md-1 col-lg-1 col-xl-1 text-end">';
                       echo '<a href="cartController/removeProductFromCart?productId=' . $product['id'] . '" class="text-muted"><i class="fas fa-times"></i></a>';
@@ -107,7 +107,7 @@
 
                     <div class="d-flex justify-content-between mb-4">
                       <h5 class="text-uppercase">items <?php echo $nbItems; ?></h5>
-                      <h5>€ <?php echo number_format($totalAmount, 2); ?></h5>
+                      <h5><?php echo number_format($totalAmount, 2); ?> €</h5>
                     </div>
 
                     <h5 class="text-uppercase mb-3">Shipping</h5>
