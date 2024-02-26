@@ -34,3 +34,13 @@
 .Shipping p{
     color: black;
 }
+
+.ajouter-article{
+    color: #212966;
+   background-color: #E5DEDC;
+}
+.ajouter-article:hover{
+    color: #212966;
+   background-color: #7C84A6;
+}
+
