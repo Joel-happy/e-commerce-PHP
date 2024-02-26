@@ -1,10 +1,7 @@
 <?php
 
 namespace Backend\src\utility;
-use Backend\src\controllers\ProductController;
-session_start();
-$allProduct = ProductController::getAllProducts();
-$username = $_SESSION['username'];
+
 class Utility
 {
     const PASSWORD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
@@ -113,42 +110,5 @@ class Utility
 
             Utility::redirectWithMessage($location, "error", "image_not_uploaded");
         }
-    }
-    // slice verification with a slice all word
-    public static function sliceVerification($slice,$word)
-    {
-        if (strlen($slice) > strlen($word))
-         return false;
-       $lowerword=strtolower($word);
-       $lowerslice=strtolower($slice);
-       $arrayword = str_split($word,strlen($slice)-1);
-       $arrayslice = str_split($slice);
-       if (in_array($arrayslice,$arrayword)) // j'utilise ou double tcheck pour etre sur le premier plus rapide le deuxieme un peu plus long
-            return true;
-        if (stristr($word, $slice) === TRUE)
-         return true;
-        return false;
-    }
-    // search
-
-    public static function Searchadmin($search,$flag)
-    {
-    // i need here the function that take all Product name
-    // and here the User name
-    
-        if ($flag == true) // le flag permet de dire si je prefere afficher user et produit ou les deux
-            foreach ($allproduct as $product);
-                if (sliceVerification($search,$product['name']))
-                $productTab = array_pop($product);
-                    
-        else {
-            foreach ($allUser as  $allUsers);
-            if (sliceVerification($search,$allUsers['name']))
-            $Usertab = array_pop($allUsers);
-    }
-    if (empty($Usertab) == true && empty($productTab) == true) return "Error";
-    if (empty($Usertab)== false) return $Usertab;
-else { return $productTab;}
-
     }
 }

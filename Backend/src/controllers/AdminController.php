@@ -4,14 +4,19 @@ namespace Backend\src\controllers;
 
 use Backend\src\utility\Utility;
 
+use Backend\src\controllers\ProductController;
+session_start();
+$allProduct = ProductController::getAllProducts();
+$allUser = ProductController::getAllUser();
 
-class AuthAdminController
+class AdminController
 {
     private $productModel;
 
-    public function __construct($productModel)
+    public function __construct($productModel,$userModel)
     {
         $this->productModel = $productModel;
+        $this->userModel = $userModel;
     }
 
     //
@@ -78,4 +83,44 @@ class AuthAdminController
             Utility::redirectWithMessage("addProduct", "error", "invalid_request_method");
         }
     }
+        // slice verification with a slice all word
+        public static function sliceVerification($slice,$word)
+        {
+            if (strlen($slice) > strlen($word))
+             return false;
+    
+           $lowerword=strtolower($word);
+           $lowerslice=strtolower($slice);
+           $arrayword = str_split($word,strlen($slice)-1);
+           $arrayslice = str_split($slice);
+    
+           if (in_array($arrayslice,$arrayword)){return true;} // j'utilise ou double tcheck pour etre sur le premier plus rapide le deuxieme un peu plus long
+           if (stristr($word, $slice) === TRUE) {return true;}
+           return false;
+        }
+        // search
+    
+        public static function searchadminP($search)
+        {
+            if (empty($_GET['search']) || empty($_GET['flag']== TRUE)){return "Error"}
+                foreach ($allproduct as $product) {
+                    if (sliceVerification($search,$product['name']))
+                    $productTab = array_pop($product);
+                }
+                if (empty($productTab) == true) {return "Not Find";}
+                if (empty($productTab)== false) {return $productTab;}
+        }
+    
+    
+        public static function searchadminU($search)
+        {
+            if(empty($_GET['search']|| empty($_GET['flag'] == FALSE))){return "Error"}
+             foreach ($allUser as  $allUsers); {
+                if (sliceVerification($search,$allUsers['name'])) {
+                    $usertab = array_pop($allUsers);
+                }
+            }
+            if (empty($usertab) == true){ return "Not find";}
+            if (empty($usertab)== false){ return $usertab;}
+        }
 }
