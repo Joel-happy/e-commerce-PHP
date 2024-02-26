@@ -25,7 +25,7 @@ class UserController
                 $this->processUpdateUsername($formData);
             }
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "invalid_request_method");
+            Utility::redirectWithMessage("profile", "error", "invalid_request_method");
         }
     }
 
@@ -41,14 +41,14 @@ class UserController
         $newUsername = $formData['newUsername'];
 
         // Validate username length
-        Utility::validateUsername("userProfile", $newUsername);
+        Utility::validateUsername("profile", $newUsername);
 
         // Validate username characters
         $newUsername = filter_var($newUsername, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         // Check if username is already in use
         if ($this->userModel->isUsernameAlreadyInUse($newUsername)) {
-            Utility::redirectWithMessage("userProfile", "error", "username_already_in_use");
+            Utility::redirectWithMessage("profile", "error", "username_already_in_use");
             return false;
         }
 
@@ -66,9 +66,9 @@ class UserController
             // Update user's username inside current session
             $_SESSION['username'] = $formData['newUsername'];
 
-            Utility::redirectWithMessage("userProfile", "success", "username_updated");
+            Utility::redirectWithMessage("profile", "success", "username_updated");
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "username_not_updated");
+            Utility::redirectWithMessage("profile", "error", "username_not_updated");
         }
     }
 
@@ -84,7 +84,7 @@ class UserController
                 $this->processSendEmailToUpdate($formData);
             }
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "invalid_request_method");
+            Utility::redirectWithMessage("profile", "error", "invalid_request_method");
         }
     }
 
@@ -100,11 +100,11 @@ class UserController
         $newEmail = $formData['newEmail'];
 
         // Validate email
-        Utility::validateEmail("userProfile", $newEmail);
+        Utility::validateEmail("profile", $newEmail);
 
         // Check if email is already in use
         if ($this->userModel->isEmailAlreadyInUse($newEmail)) {
-            Utility::redirectWithMessage("userProfile", "error", "email_already_in_use");
+            Utility::redirectWithMessage("profile", "error", "email_already_in_use");
             return false;
         }
 
@@ -123,12 +123,12 @@ class UserController
         if ($success) {
             // Send verification email to verify new email address
             if (Utility::sendVerificationEmail($formData['newEmail'], $token, true)) {
-                Utility::redirectWithMessage("userProfile", "success", "email_sent_for_update");
+                Utility::redirectWithMessage("profile", "success", "email_sent_for_update");
             } else {
-                Utility::redirectWithMessage("userProfile", "error", "email_not_sent");
+                Utility::redirectWithMessage("profile", "error", "email_not_sent");
             }
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "email_not_sent");
+            Utility::redirectWithMessage("profile", "error", "email_not_sent");
         }
     }
 
@@ -145,12 +145,12 @@ class UserController
                 // Update user's email inside current session
                 $_SESSION['email'] = $newEmail;
 
-                Utility::redirectWithMessage("userProfile", "success", "email_updated");
+                Utility::redirectWithMessage("profile", "success", "email_updated");
             } else {
-                Utility::redirectWithMessage("userProfile", "error", "invalid_token");
+                Utility::redirectWithMessage("profile", "error", "invalid_token");
             }
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "invalid_token");
+            Utility::redirectWithMessage("profile", "error", "invalid_token");
         }
     }
 
@@ -166,7 +166,7 @@ class UserController
                 $this->processUpdatePassword($formData);
             }
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "invalid_request_method");
+            Utility::redirectWithMessage("profile", "error", "invalid_request_method");
         }
     }
 
@@ -174,21 +174,21 @@ class UserController
     {
         return [
             'newPassword' => $_POST['newPassword'],
-            'newConfirmPassword' => $_POST['newConfirmPassword'],
+            'newPasswordConfirm' => $_POST['newPasswordConfirm'],
         ];
     }
 
     private function validateNewPasswordFormData($formData)
     {
         $newPassword = $formData['newPassword'];
-        $newConfirmPassword = $formData['newConfirmPassword'];
+        $newPasswordConfirm = $formData['newPasswordConfirm'];
 
         // Validate password
-        Utility::validatePassword("userProfile", $newPassword);
+        Utility::validatePassword("profile", $newPassword);
 
         // Matching passwords
-        if ($newPassword != $newConfirmPassword) {
-            Utility::redirectWithMessage("userProfile", "error", "not_matching_passwords");
+        if ($newPassword != $newPasswordConfirm) {
+            Utility::redirectWithMessage("profile", "error", "not_matching_passwords");
             return false;
         }
 
@@ -206,9 +206,21 @@ class UserController
         $success = $this->userModel->updatePassword($hashedPassword, $_SESSION['user_id']);
 
         if ($success) {
-            Utility::redirectWithMessage("userProfile", "success", "password_updated");
+            Utility::redirectWithMessage("profile", "success", "password_updated");
         } else {
-            Utility::redirectWithMessage("userProfile", "error", "password_not_updated");
+            Utility::redirectWithMessage("profile", "error", "password_not_updated");
         }
+    }
+
+    //
+    // Display Order History
+    //
+
+    public function getOrderHistoryData() {
+        session_start();
+        $userId = $_SESSION['user_id'];
+
+        $orderHistoryData = $this->userModel->fetchOrderHistoryData($userId);
+        return $orderHistoryData;
     }
 }

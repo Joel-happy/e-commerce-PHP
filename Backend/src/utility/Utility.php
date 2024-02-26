@@ -11,10 +11,10 @@ class Utility
     {
         // Check if the $location already contains a query string
         $separator = (strpos($location, '?') === false) ? '?' : ($useAmpersand ? '&' : '?');
-    
+
         // Append the parameters to the $location
         $redirectUrl = "../$location" . $separator . "$status=$message";
-    
+
         header("Location: $redirectUrl");
         exit();
     }
@@ -84,5 +84,31 @@ class Utility
     {
         if (!is_numeric($value))
             Utility::redirectWithMessage($location, "error", "value_not_numeric");
+    }
+
+    // Validate image
+    public static function validateImage($location, $productImage)
+    {
+        if ($productImage['error'] === UPLOAD_ERR_OK) {
+            $imageFileType = strtolower(pathinfo($productImage['name'], PATHINFO_EXTENSION));
+            $allowedExtensions = array("jpg", "jpeg", "png");
+            
+            if (!in_array($imageFileType, $allowedExtensions)) {
+                // Invalid file type
+                Utility::redirectWithMessage($location, "error", "not_allowed_extension");
+            }
+
+            if ($productImage['size'] > (5 * 1024 * 1024)) { // 5 MB
+                // File size too large
+                Utility::redirectWithMessage($location, "error", "image_size_exceed_max");
+            }
+        } else if ($productImage['error'] !== UPLOAD_ERR_NO_FILE) {
+            // File upload error
+            $errorMsg = "Image upload error: " . $productImage['error'];
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg;
+            error_log($errorLog, 3, "error.log");
+
+            Utility::redirectWithMessage($location, "error", "image_not_uploaded");
+        }
     }
 }

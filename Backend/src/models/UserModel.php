@@ -224,4 +224,33 @@ class UserModel
             return false;
         }
     }
+
+    // Fetch all data inside order history associated with a user
+    public function fetchOrderHistoryData($userId) {
+        try {
+            $query = "SELECT order_history.*, product.*
+                    FROM order_history
+                    INNER JOIN product ON order_history.product_id=product.id
+                    WHERE order_history.user_id=:user_id";
+            $params = [
+                ':user_id' => $userId,
+            ];
+
+            $result = $this->pdo->select($query, $params);
+
+            // Check if a result has been returned
+            if ($result && count($result) > 0) {
+                return $result;
+            } else {
+                // No products found
+                return [];
+            }
+        } catch (\PDOException $e) {
+            // Log the error with additional information
+            $errorMsg = "Database error: " . $e->getMessage();
+            $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
+            error_log($errorLog, 3, "error.log");
+            return false;
+        }
+    }
 }

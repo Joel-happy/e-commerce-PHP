@@ -17,12 +17,14 @@ class ProductController
     // Read Product
     //
 
-    public function getAllProducts() {
+    public function getAllProducts()
+    {
         $products = $this->productModel->getAllProducts();
         return $products;
     }
 
-    public function getProductById() {
+    public function getProductById()
+    {
         $productId = $_GET['productId'];
         $product = $this->productModel->getProductById($productId);
         return $product;
@@ -52,18 +54,27 @@ class ProductController
             'productCategory' => $_POST['productCategory'],
             'productPrice' => floatval($_POST['productPrice']),
         ];
-     
+
         // Check if productId exists in $_POST
         if (isset($_POST['productId'])) {
             $formData['productId'] = $_POST['productId'];
         }
-    
+
+        // Handle product image
+        if ($_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
+            $formData['productImage'] = $_FILES['productImage'];
+        } else {
+            // Image upload failed
+            $formData['productImage'] = null;
+        }
+
         return $formData;
     }
 
     private function validateProductFormData($formData)
     {
         $productName = $formData['productName'];
+        $productImage = $formData['productImage'];
         $productDescription = $formData['productDescription'];
         $productCategory = $formData['productCategory'];
         $productPrice = $formData['productPrice'];
@@ -78,6 +89,7 @@ class ProductController
         Utility::validateStringDataType("addProduct", $productDescription);
         Utility::validateStringDataType("addProduct", $productCategory);
         Utility::validateNumericDataType("addProduct", $productPrice);
+        Utility::validateImage("addProduct", $productImage);
 
         return true;
     }
@@ -87,17 +99,26 @@ class ProductController
         session_start();
 
         $productName = $formData['productName'];
+        $productImage = $formData['productImage'];
         $productDescription = $formData['productDescription'];
         $productCategory = $formData['productCategory'];
         $productPrice = $formData['productPrice'];
 
         // Call the product model to create product
-        $success = $this->productModel->createProduct($productName, $productDescription, $productCategory, $productPrice, $_SESSION['user_id']);
+        $success = $this->productModel->createProduct($productName, $productImage['name'], $productDescription, $productCategory, $productPrice, $_SESSION['user_id']);
 
         if ($success) {
-            Utility::redirectWithMessage("home", "", "");
+            $uploadDir = "Frontend/assets/userImg/";
+            $targetFile = $uploadDir . basename($productImage['name']);
+            if (move_uploaded_file($productImage['tmp_name'], $targetFile)) {
+                // Image uploaded successfully
+                Utility::redirectWithMessage("home", "", "");
+            } else {
+                 // Error in uploading image
+                Utility::redirectWithMessage("addProduct", "error", "image_not_uploaded");
+            }
         } else {
-           Utility::redirectWithMessage("addProduct", "error", "product_not_added");
+            Utility::redirectWithMessage("addProduct", "error", "product_not_added");
         }
     }
 
@@ -105,7 +126,8 @@ class ProductController
     // Update Product
     //
 
-    public function updateProduct() {
+    public function updateProduct()
+    {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $formData = $this->extractProductFormData();
             if ($this->validateProductFormData($formData)) {
@@ -116,22 +138,32 @@ class ProductController
         }
     }
 
-    private function processUpdateProduct($formData) {
+    private function processUpdateProduct($formData)
+    {
         session_start();
 
         $productId = $formData['productId'];
         $productName = $formData['productName'];
+        $productImage = $formData['productImage'];
         $productDescription = $formData['productDescription'];
         $productCategory = $formData['productCategory'];
         $productPrice = $formData['productPrice'];
 
         // Call the product model to update a product
-        $success = $this->productModel->updateProduct($productId, $productName, $productDescription, $productCategory, $productPrice, $_SESSION['user_id']);
+        $success = $this->productModel->updateProduct($productId, $productName, $productImage['name'], $productDescription, $productCategory, $productPrice, $_SESSION['user_id']);
 
         if ($success) {
-            Utility::redirectWithMessage("viewProduct?productId=$productId", "success", "product_updated", true);
+            $uploadDir = "Frontend/assets/userImg/";
+            $targetFile = $uploadDir . basename($productImage['name']);
+            if (move_uploaded_file($productImage['tmp_name'], $targetFile)) {
+                // Image uploaded successfully
+                Utility::redirectWithMessage("viewProduct?productId=$productId", "success", "product_updated", true);
+            } else {
+                // Error in uploading image
+                Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "image_not_uploaded", true);
+            }
         } else {
-           Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_updated", true);
+            Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_updated", true);
         }
     }
 
@@ -139,7 +171,8 @@ class ProductController
     // Delete Product
     //
 
-    public function deleteProduct() {
+    public function deleteProduct()
+    {
         session_start();
 
         $productId = $_GET['productId'];
@@ -148,7 +181,7 @@ class ProductController
         if ($success) {
             Utility::redirectWithMessage("home", "", "");
         } else {
-           Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_deleted");
+            Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_deleted");
         }
     }
 }

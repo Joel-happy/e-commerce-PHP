@@ -33,21 +33,26 @@ function openUpdateModal(product) {
     document.getElementById("productCategory").value = productObj.category;
     document.getElementById("productPrice").value = productObj.price;
 
-    // Open the modal
-    document.getElementById("updateModal").style.display = "block";
+    // Trigger the modal using Bootstrap's modal API
+    var updateModal = new bootstrap.Modal(document.getElementById('updateModal'));
+    updateModal.show();
 }
 
 /*-------------------------------------------
 # General
 -------------------------------------------*/
+var updateModalElement = document.getElementById('updateModal');
+
 // Close modal when clicking on the close button
-document.getElementsByClassName("close")[0].onclick = function() {
-    document.getElementById("updateModal").style.display = "none";
-}
+updateModalElement.querySelector('.close').onclick = function() {
+    var updateModal = bootstrap.Modal.getInstance(updateModalElement);
+    updateModal.hide();
+};
 
 // Close modal when clicking outside of it
 window.onclick = function(event) {
-    if (event.target == document.getElementById("updateModal")) {
-        document.getElementById("updateModal").style.display = "none";
+    if (event.target === updateModalElement) {
+        var updateModal = bootstrap.Modal.getInstance(updateModalElement);
+        updateModal.hide();
     }
-}
+};
