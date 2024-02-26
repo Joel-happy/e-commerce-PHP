@@ -92,3 +92,16 @@ a {
 .inscription{
     color: #212966;
 }
+
+
+#footer {
+    background-color: #7C84A6;
+}
+
+#footer a:hover {
+    color: #212966;
+}
+
+.Shipping p{
+    color: black;
+}
