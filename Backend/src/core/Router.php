@@ -131,8 +131,8 @@ class Router
     // Defines routes for the AdminController
     private function defineAdminRoutes()
     {
-        $this->addRoute('admin', function () {
-            $this->initAdminController()->AdminController();
+        $this->addRoute('AdminController/adminP', function () {
+            $this->initAdminController()->searchadminP();
         });
     }
 

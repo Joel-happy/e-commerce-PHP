@@ -7,17 +7,18 @@
 <body>
     <div>
 
-        <form method="get" action="">
+        <form  method="get" action="">
             <div class="w3-container w3-padding">
-                <form action="" class="search-bar">
+                <form action="AdminController/adminP" class="search-bar">
                     <h8>Search : </h8>
                 <input type="search" name="search">
-                <button class="search-btn" type="submit">User</button>
-                <button class="search-btn" type="submit">Product</button>
-                      <?php if (empty($_GET["search"])) : ?>
+                <button class="search-btn" name="flag" type="submit" value="200">User</button>
+                <button class="search-btn" name="flag" type="submit" value="100" >Product</button>
+                      <?php if (empty($_GET["search"])==false && $_GET['flag'] =="100") : ?>
                         <h1> <?php echo $_GET["search"] ?>  </h1>
-                        <?php endif; ?>
-                        <?php foreach ($products as $product) : ?>
+                        <h1> <?php echo $_GET["flag"] ?>  </h1> 
+                        <?php require '.\Backend\src\controllers\AdminController.php';
+                        foreach (searchadminP($_GET["search"]) as $product) : ?>
         <div class="swiper-slide">
             <div class="product-card position-relative">
                 <div class="image-holder">
@@ -38,7 +39,7 @@
             </div>
         </div>
         <?php endforeach; ?>
-                    
+        <?php endif; ?>
                {{.Titre}}</button>
                
                 </form>

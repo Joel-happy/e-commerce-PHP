@@ -5,9 +5,10 @@ namespace Backend\src\controllers;
 use Backend\src\utility\Utility;
 
 use Backend\src\controllers\ProductController;
+use Backend\src\controllers\UserController;
 session_start();
 $allProduct = ProductController::getAllProducts();
-$allUser = ProductController::getAllUser();
+$allUser = UserController::getAllUser();
 
 class AdminController
 {
@@ -102,7 +103,7 @@ class AdminController
     
         public static function searchadminP($search)
         {
-            if (empty($_GET['search']) || empty($_GET['flag']== TRUE)){return "Error"}
+           
                 foreach ($allproduct as $product) {
                     if (sliceVerification($search,$product['name']))
                     $productTab = array_pop($product);
@@ -114,7 +115,7 @@ class AdminController
     
         public static function searchadminU($search)
         {
-            if(empty($_GET['search']|| empty($_GET['flag'] == FALSE))){return "Error"}
+            
              foreach ($allUser as  $allUsers); {
                 if (sliceVerification($search,$allUsers['name'])) {
                     $usertab = array_pop($allUsers);
