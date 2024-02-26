@@ -89,9 +89,14 @@ class Router
             include('Frontend/views/products/viewProduct.php');
         });
 
+<<<<<<< HEAD
         $this->addRoute('cart', function () {
             $products = $this->initCartController()->getProductsFromCart();
             include('Frontend/views/cart.php');
+=======
+        $this->addRoute('admin', function() {
+            include('Frontend/views/products/admin.php');
+>>>>>>> 6e356e54ddc7d4c6d1f8d423cbcf59ba872c4ead
         });
     }
 

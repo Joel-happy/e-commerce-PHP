@@ -86,6 +86,7 @@ class Utility
             Utility::redirectWithMessage($location, "error", "value_not_numeric");
     }
 
+<<<<<<< HEAD
     // Validate image
     public static function validateImage($location, $productImage)
     {
@@ -111,4 +112,28 @@ class Utility
             Utility::redirectWithMessage($location, "error", "image_not_uploaded");
         }
     }
+=======
+    // slice verification with a slice all word
+    public static function sliceVerification($slice,$word)
+    {
+        if (strlen($slice) > strlen($word))
+         return false;
+       $lowerword=strtolower($word);
+       $lowerslice=strtolower($slice);
+       $arrayword = str_split($word,strlen($slice)-1);
+       $arrayslice = str_split($slice);
+       if (in_array($arrayslice,$arrayword)) // j'utilise ou double tcheck pour etre sur le premier plus rapide le deuxieme un peu plus long
+            return true;
+        if (stristr($word, $slice) === TRUE)
+         return true;
+        return false;
+    }
+    // search
+
+    // public static function Searchadmin($search,$flag)
+    // {
+    //     if ($flag == true)
+
+    // }
+>>>>>>> 6e356e54ddc7d4c6d1f8d423cbcf59ba872c4ead
 }

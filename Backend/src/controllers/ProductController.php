@@ -184,4 +184,17 @@ class ProductController
             Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_deleted");
         }
     }
+    public function deleteProductAdmin() {
+        session_start();
+        $productId = $_POST['productId'];
+        $success = $this->productModel->deleteProduct($productId, $_SESSION['user_id']);
+        $isAdmin = $_SESSION['admin'];
+        if ($isAdmin != 1)
+            Utility::redirectWithMessage("home", "", "");
+        if ($success == 1) {
+            Utility::redirectWithMessage("admin", "", "");
+        } else {
+           Utility::redirectWithMessage("viewProduct?productId=$productId", "error", "product_not_deleted");
+        }
+    }
 }
