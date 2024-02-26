@@ -85,4 +85,27 @@ class Utility
         if (!is_numeric($value))
             Utility::redirectWithMessage($location, "error", "value_not_numeric");
     }
+
+    // slice verification with a slice all word
+    public static function sliceVerification($slice,$word)
+    {
+        if (strlen($slice) > strlen($word))
+         return false;
+       $lowerword=strtolower($word);
+       $lowerslice=strtolower($slice);
+       $arrayword = str_split($word,strlen($slice)-1);
+       $arrayslice = str_split($slice);
+       if (in_array($arrayslice,$arrayword)) // j'utilise ou double tcheck pour etre sur le premier plus rapide le deuxieme un peu plus long
+            return true;
+        if (stristr($word, $slice) === TRUE)
+         return true;
+        return false;
+    }
+    // search
+
+    // public static function Searchadmin($search,$flag)
+    // {
+    //     if ($flag == true)
+
+    // }
 }

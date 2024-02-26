@@ -79,6 +79,10 @@ class Router
             $product = $this->initProductController()->getProductById();
             include('Frontend/views/products/viewProduct.php');
         });
+
+        $this->addRoute('admin', function() {
+            include('Frontend/views/products/admin.php');
+        });
     }
 
     // Define routes for the AuthController
