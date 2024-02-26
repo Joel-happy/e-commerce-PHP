@@ -2,7 +2,7 @@
 
 namespace Backend\src\core;
 
-use Frontend\view\View;
+use Backend\src\utility\Utility;
 
 class Router
 {
@@ -14,6 +14,7 @@ class Router
         $this->defineAuthRoutes();
         $this->defineUserRoutes();
         $this->defineProductRoutes();
+        $this->defineCartRoutes();
     }
 
     // Get PDO
@@ -39,45 +40,58 @@ class Router
     }
 
     // Initialize ProductController
-    private function initProductController() {
+    private function initProductController()
+    {
         $pdo = $this->getPDO();
         $productModel = new \Backend\src\models\ProductModel($pdo);
         return new \Backend\src\controllers\ProductController($productModel);
     }
-    
+
+    private function initCartController()
+    {
+        $pdo = $this->getPDO();
+        $cartModel = new \Backend\src\models\CartModel($pdo);
+        return new \Backend\src\controllers\CartController($cartModel);
+    }
 
     // Define routes for normal views
     private function defineViewsRoutes()
     {
         $this->addRoute('', function () {
             $products = $this->initProductController()->getAllProducts();
-            include('Frontend/views/home.php');
+            include('Frontend/views/home/home.php');
         });
 
         $this->addRoute('home', function () {
             $products = $this->initProductController()->getAllProducts();
-            include('Frontend/views/home.php');
+            include('Frontend/views/home/home.php');
         });
 
         $this->addRoute('register', function () {
-            include('Frontend/views/register.php');
+            include('Frontend/views/authentication/register.php');
         });
 
         $this->addRoute('login', function () {
-            include('Frontend/views/login.php');
+            include('Frontend/views/authentication/login.php');
         });
 
-        $this->addRoute('userProfile', function () {
-            include('Frontend/views/!userProfile.php');
+        $this->addRoute('profile', function () {
+            $orderHistoryData = $this->initUserController()->getOrderHistoryData();
+            include('Frontend/views/profile/profile.php');
         });
 
-        $this->addRoute('addProduct', function() {
+        $this->addRoute('addProduct', function () {
             include('Frontend/views/products/addProduct.php');
         });
 
-        $this->addRoute('viewProduct', function() {
+        $this->addRoute('viewProduct', function () {
             $product = $this->initProductController()->getProductById();
             include('Frontend/views/products/viewProduct.php');
+        });
+
+        $this->addRoute('cart', function () {
+            $products = $this->initCartController()->getProductsFromCart();
+            include('Frontend/views/cart.php');
         });
     }
 
@@ -122,7 +136,8 @@ class Router
     }
 
     // Define routes for the ProductController
-    private function defineProductRoutes() {
+    private function defineProductRoutes()
+    {
         $this->addRoute('productController/addProduct', function () {
             $this->initProductController()->addProduct();
         });
@@ -133,6 +148,22 @@ class Router
 
         $this->addRoute('productController/deleteProduct', function () {
             $this->initProductController()->deleteProduct();
+        });
+    }
+
+    // Define routes for the CartController
+    private function defineCartRoutes()
+    {
+        $this->addRoute('cartController/addProductToCart', function () {
+            $this->initCartController()->addProductToCart();
+        });
+
+        $this->addRoute('cartController/removeProductFromCart', function () {
+            $this->initCartController()->removeProductFromCart();
+        });
+
+        $this->addRoute('cartController/checkout', function () {
+            $this->initCartController()->checkout();
         });
     }
 

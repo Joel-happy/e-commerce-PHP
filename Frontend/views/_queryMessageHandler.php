@@ -108,6 +108,15 @@ if (isset($_GET['error'])) {
         case "product_not_added":
             echo "We have encountered an error. Your product was not added.";
             break;
+        case "not_allowed_extension":
+            echo "Invalid file type for an image. Allowed extensions are JPG, JPEG and PNG";
+            break;
+        case "image_size_exceed_max":
+            echo "Your file exceeds the maximum allowed size (5mb)";
+            break;
+        case "image_not_uploaded":
+            echo "We have encountered an error. Your image was not uploaded";
+            break;
     }
 }
 
@@ -115,10 +124,14 @@ if (isset($_GET['error'])) {
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
         case "product_updated":
-            echo "Your product information has been updated";
+            echo "Your product information has been updated.";
+            break;
+        case "product_added_to_cart":
+            echo "The product has been added to cart.";
             break;
     }
 }
+
 
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
@@ -128,6 +141,30 @@ if (isset($_GET['error'])) {
         case "product_not_updated":
             echo "We have encountered an error. Your product was not updated";
             break;
+        case "product_already_added":
+            echo "The product has already been added to cart";
+            break;
+        case "product_not_added_to_cart":
+            echo "We have encountered an error. Your product was not added to the cart.";
+            break;
     }
 }
 
+
+// cart.php
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case "product_removed_from_cart":
+            echo "The chosen product has been removed.";
+            break;
+        case "product_not_removed_from_cart":
+            echo "We have encountered an error. The product was not removed.";
+            break;
+        case "record_purchase_products_fail":
+            echo "We have encountered an error. Your purchased history was not updated with the latest purchase";
+            break;
+        case "remove_products_cart_fail":
+            echo "We have encountered an error. The cart products have not been removed.";
+            break;
+    }
+}
