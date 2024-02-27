@@ -253,4 +253,28 @@ class UserModel
             return false;
         }
     }
+        // Get all User
+        public function getAllUser()
+        {
+            try {
+                $query = "SELECT * FROM account";
+    
+                $result = $this->pdo->select($query, []);
+    
+                // Check if a result has been returned
+                if ($result && count($result) > 0) {
+                    return $result;
+                } else {
+                    // No products found
+                    return [];
+                }
+            } catch (\PDOException $e) {
+                // Log the error with additional information
+                $errorMsg = "Database error: " . $e->getMessage();
+                $errorLog = "[" . date("Y-m-d H:i:s") . "] " . basename(__FILE__) . " (line " . __LINE__ . "): " . $errorMsg . "\n";
+                error_log($errorLog, 3, "error.log");
+                return false;
+            }
+        }
+    
 }

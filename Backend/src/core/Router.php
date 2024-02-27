@@ -39,6 +39,15 @@ class Router
         return new \Backend\src\controllers\UserController($userModel);
     }
 
+    // Initialize AdminController
+    private function initAdminController()
+    {
+        $pdo = $this->getPDO();
+        $userModel = new \Backend\src\models\UserModel($pdo);
+        $productModel = new \Backend\src\models\ProductModel($pdo);
+        return new \Backend\src\controllers\AdminController($productModel,$userModel);
+    }
+
     // Initialize ProductController
     private function initProductController()
     {
@@ -93,6 +102,10 @@ class Router
             $products = $this->initCartController()->getProductsFromCart();
             include('Frontend/views/cart.php');
         });
+        
+        $this->addRoute('admin', function() {
+            include('Frontend/views/admin.php');
+        });
     }
 
     // Define routes for the AuthController
@@ -112,6 +125,14 @@ class Router
 
         $this->addRoute('authController/logout', function () {
             $this->initAuthController()->logout();
+        });
+    }
+
+    // Defines routes for the AdminController
+    private function defineAdminRoutes()
+    {
+        $this->addRoute('AdminController/adminP', function () {
+            $this->initAdminController()->searchadminP();
         });
     }
 
